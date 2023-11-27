@@ -13,8 +13,7 @@ public class UniGearRentAPIDbContext : IdentityDbContext<IdentityUser, IdentityR
     public DbSet<Lessor> Lessors { get; set; }
     public DbSet<CarPost> CarPosts { get; set; }
     public DbSet<TrailerPost> TrailerPosts { get; set; }
-    public UniGearRentAPIDbContext (DbContextOptions<UniGearRentAPIDbContext> options)
-        : base(options)
+    public UniGearRentAPIDbContext ()
     {
         if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Test")Database.Migrate();
     }
@@ -24,12 +23,14 @@ public class UniGearRentAPIDbContext : IdentityDbContext<IdentityUser, IdentityR
         {
             options.UseInMemoryDatabase("TestDatabase");
         }
-        else options.UseNpgsql(
-            Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
+        else
+            options.UseNpgsql(
+                Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
         builder.Entity<Lessor>().HasMany(e => e.Posts)
             .WithOne(e => e.Lessor)
             .HasForeignKey(e => e.PosterId);

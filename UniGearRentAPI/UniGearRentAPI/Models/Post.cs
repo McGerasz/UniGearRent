@@ -11,10 +11,9 @@ public abstract class Post
     public int Id { get; set; }
     public string Name { get; set; }
     public string Location { get; set; }
-    public int PosterId { get; set; }
+    public string PosterId { get; set; }
     public Lessor Lessor { get; set; }
     public string Descritption { get; set; }
-    public ICollection<string> MotorwaySticker { get; set; }
     public int? HourlyPrice { get; set; }
     public int? DailyPrice { get; set; }
     public int? WeeklyPrice { get; set; }

@@ -10,10 +10,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 builder.Services.AddDbContext<UniGearRentAPIDbContext>();
 AddAuthentication();
 AddIdentity();
+var app = builder.Build();
 if (Environment.GetEnvironmentVariable("Environment") != "Testing")
 {
     AddRoles();
@@ -100,7 +100,7 @@ void AddRoles()
         async Task CreateAdminIfNotExists()
         {
             using var scope = app.Services.CreateScope();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
             var adminInDb = await userManager.FindByEmailAsync(Environment.GetEnvironmentVariable("ASPNETCORE_ADMINEMAIL"));
             if (adminInDb == null)
             {
