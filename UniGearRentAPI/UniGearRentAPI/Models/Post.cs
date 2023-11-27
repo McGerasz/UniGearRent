@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace UniGearRentAPI.Models;
 
@@ -11,6 +12,7 @@ public abstract class Post
     public string Name { get; set; }
     public string Location { get; set; }
     public int PosterId { get; set; }
+    public Lessor Lessor { get; set; }
     public string Descritption { get; set; }
     public ICollection<string> MotorwaySticker { get; set; }
     public int? HourlyPrice { get; set; }
