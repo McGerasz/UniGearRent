@@ -3,13 +3,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using UniGearRentAPI.DatabaseServices;
+using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddTransient<IRepository<CarPost>, CarPostRepository>();
+builder.Services.AddTransient<IRepository<TrailerPost>, TrailerPostRepository>();
 builder.Services.AddDbContext<UniGearRentAPIDbContext>();
 AddAuthentication();
 AddIdentity();
