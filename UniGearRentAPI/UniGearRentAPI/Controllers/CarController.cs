@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
+using UniGearRentAPI.Services.Authentication;
 
 namespace UniGearRentAPI.Controllers;
 
@@ -11,14 +12,16 @@ public class CarController : ControllerBase
 {
     private readonly IRepository<CarPost> _carPostRepository;
     private readonly ILogger _logger;
+    private readonly IIdService _idService;
 
-    public CarController(IRepository<CarPost> carPostRepository, ILogger<CarController> logger)
+    public CarController(IRepository<CarPost> carPostRepository, ILogger<CarController> logger, IIdService idService)
     {
         _carPostRepository = carPostRepository;
         _logger = logger;
+        _idService = idService;
     }
 
-    [HttpGet("/all")]
+    [HttpGet("all")]
     public IActionResult GetAll()
     {
         _logger.LogInformation("Beginning operation");
@@ -33,7 +36,7 @@ public class CarController : ControllerBase
         return Ok(carPosts);
     }
 
-    [HttpGet("/{id}")]
+    [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
         _logger.LogInformation("Beginning operation");
@@ -45,16 +48,18 @@ public class CarController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] CarPost carPost)
+    public IActionResult Post([FromBody] CarPost carPost, [Required]string userName, 
+        [Required]string email, [Required]string phoneNumber)
     {
         _logger.LogInformation("Beginning operation");
         _logger.LogInformation("Updating database");
+        carPost.PosterId = _idService.GetId(userName, email, phoneNumber);
         _carPostRepository.Create(carPost);
         _logger.LogInformation("Operation successful");
         return Ok(_carPostRepository.GetById(carPost.Id));
     }
 
-    [HttpDelete("/{id:int}")]
+    [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
         _logger.LogInformation("Beginning operation");
@@ -63,7 +68,7 @@ public class CarController : ControllerBase
         return Ok();
     }
 
-    [HttpPatch("/{id:int}")]
+    [HttpPatch("{id:int}")]
     public IActionResult Patch([Required] int id, string? name, string? location,
         string? posterId, string? description, int? hourlyPrice, 
         int? dailyPrice, int? weeklyPrice, int? securityDeposit,

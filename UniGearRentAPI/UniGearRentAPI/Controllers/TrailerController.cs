@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
+using UniGearRentAPI.Services.Authentication;
 
 namespace UniGearRentAPI.Controllers;
 
@@ -11,13 +12,15 @@ public class TrailerController : ControllerBase
 {
     private readonly IRepository<TrailerPost> _trailerRepository;
     private readonly ILogger _logger;
+    private readonly IIdService _idService;
 
-    public TrailerController(IRepository<TrailerPost> trailerRepository, ILogger<TrailerController> logger)
+    public TrailerController(IRepository<TrailerPost> trailerRepository, ILogger<TrailerController> logger, IIdService idService)
     {
         _trailerRepository = trailerRepository;
         _logger = logger;
+        _idService = idService;
     }
-     [HttpGet("/all")]
+     [HttpGet("all")]
     public IActionResult GetAll()
     {
         _logger.LogInformation("Beginning operation");
@@ -32,7 +35,7 @@ public class TrailerController : ControllerBase
         return Ok(trailerPosts);
     }
 
-    [HttpGet("/{id}")]
+    [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
         _logger.LogInformation("Beginning operation");
@@ -44,16 +47,18 @@ public class TrailerController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] TrailerPost trailerPost)
+    public IActionResult Post([FromBody] TrailerPost trailerPost, [Required]string userName, 
+        [Required]string email, [Required]string phoneNumber)
     {
         _logger.LogInformation("Beginning operation");
         _logger.LogInformation("Updating database");
+        trailerPost.PosterId = _idService.GetId(userName, email, phoneNumber);
         _trailerRepository.Create(trailerPost);
         _logger.LogInformation("Operation successful");
         return Ok(_trailerRepository.GetById(trailerPost.Id));
     }
 
-    [HttpDelete("/{id:int}")]
+    [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
         _logger.LogInformation("Beginning operation");
@@ -62,7 +67,7 @@ public class TrailerController : ControllerBase
         return Ok();
     }
 
-    [HttpPatch("/{id:int}")]
+    [HttpPatch("{id:int}")]
     public IActionResult Patch([Required] int id, string? name, string? location,
         string? posterId, string? description, int? hourlyPrice, 
         int? dailyPrice, int? weeklyPrice, int? securityDeposit,
