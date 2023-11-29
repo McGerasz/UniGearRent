@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using UniGearRentAPI.DatabaseServices;
 using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
+using UniGearRentAPI.Services.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -12,6 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IRepository<CarPost>, CarPostRepository>();
 builder.Services.AddTransient<IRepository<TrailerPost>, TrailerPostRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IIdService, IdService>();
 builder.Services.AddDbContext<UniGearRentAPIDbContext>();
 AddAuthentication();
 AddIdentity();
@@ -61,6 +65,7 @@ void AddIdentity()
     builder.Services
         .AddIdentityCore<IdentityUser>(options =>
         {
+            options.User.RequireUniqueEmail = true;
             options.SignIn.RequireConfirmedAccount = false;
             options.Password.RequireDigit = true;
             options.Password.RequiredLength = 6;
@@ -81,16 +86,24 @@ void AddRoles()
 
             var tUser = CreateUserRole(roleManager);
             tUser.Wait();
+
+            var tLessor = CreateLessorRole(roleManager);
+            tLessor.Wait();
         }
 
         async Task CreateAdminRole(RoleManager<IdentityRole> roleManager)
         {
-            await roleManager.CreateAsync(new IdentityRole(builder.Configuration["Roles:Admin"]));
+            await roleManager.CreateAsync(new IdentityRole("Admin"));
         }
 
         async Task CreateUserRole(RoleManager<IdentityRole> roleManager)
         {
-            await roleManager.CreateAsync(new IdentityRole(builder.Configuration["Roles:User"]));
+            await roleManager.CreateAsync(new IdentityRole("User"));
+        }
+
+        async Task CreateLessorRole(RoleManager<IdentityRole> roleManager)
+        {
+            await roleManager.CreateAsync(new IdentityRole("Lessor"));
         }
 
         void AddAdmin()
@@ -106,7 +119,7 @@ void AddRoles()
             var adminInDb = await userManager.FindByEmailAsync(Environment.GetEnvironmentVariable("ASPNETCORE_ADMINEMAIL"));
             if (adminInDb == null)
             {
-                var admin = new User { UserName = "Admin", Email = Environment.GetEnvironmentVariable("ASPNETCORE_ADMINEMAIL"), FirstName = "Admin", LastName = "Admin", PhoneNumber = "00000000000"};
+                var admin = new IdentityUser { UserName = "Admin", Email = Environment.GetEnvironmentVariable("ASPNETCORE_ADMINEMAIL"), PhoneNumber = "00000000000"};
                 var adminCreated = await userManager.CreateAsync(admin, Environment.GetEnvironmentVariable("ASPNETCORE_ADMINPASSWORD"));
 
                 if (adminCreated.Succeeded)
