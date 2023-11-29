@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UniGearRentAPI.DatabaseServices;
@@ -11,9 +12,11 @@ using UniGearRentAPI.DatabaseServices;
 namespace UniGearRentAPI.Migrations
 {
     [DbContext(typeof(UniGearRentAPIDbContext))]
-    partial class UniGearRentAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231129102102_extendAuth")]
+    partial class extendAuth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,7 +230,13 @@ namespace UniGearRentAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PosterId1")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("PosterId");
+
+                    b.HasIndex("PosterId1");
 
                     b.ToTable("LessorsDetails");
                 });
@@ -296,7 +305,13 @@ namespace UniGearRentAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PosterId1")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("PosterId");
+
+                    b.HasIndex("PosterId1");
 
                     b.ToTable("UsersDetails");
                 });
@@ -378,6 +393,17 @@ namespace UniGearRentAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("UniGearRentAPI.Models.LessorDetails", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Poster")
+                        .WithMany()
+                        .HasForeignKey("PosterId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Poster");
+                });
+
             modelBuilder.Entity("UniGearRentAPI.Models.Post", b =>
                 {
                     b.HasOne("UniGearRentAPI.Models.LessorDetails", "LessorDetails")
@@ -387,6 +413,17 @@ namespace UniGearRentAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("LessorDetails");
+                });
+
+            modelBuilder.Entity("UniGearRentAPI.Models.UserDetails", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Poster")
+                        .WithMany()
+                        .HasForeignKey("PosterId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Poster");
                 });
 
             modelBuilder.Entity("UniGearRentAPI.Models.LessorDetails", b =>
