@@ -12,7 +12,7 @@ public abstract class Post
     public string Name { get; set; }
     public string Location { get; set; }
     public string PosterId { get; set; }
-    public Lessor? Lessor { get; set; }
+    public LessorDetails? LessorDetails { get; set; }
     public string Descritption { get; set; }
     public int? HourlyPrice { get; set; }
     public int? DailyPrice { get; set; }
