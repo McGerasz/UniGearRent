@@ -9,8 +9,9 @@ namespace UniGearRentAPI.DatabaseServices;
 
 public class UniGearRentAPIDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Lessor> Lessors { get; set; }
+    public DbSet<IdentityUser> Users { get; set; }
+    public DbSet<UserDetails> UsersDetails { get; set; }
+    public DbSet<LessorDetails> LessorsDetails { get; set; }
     public DbSet<CarPost> CarPosts { get; set; }
     public DbSet<TrailerPost> TrailerPosts { get; set; }
     public UniGearRentAPIDbContext ()
@@ -31,8 +32,8 @@ public class UniGearRentAPIDbContext : IdentityDbContext<IdentityUser, IdentityR
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<Lessor>().HasMany(e => e.Posts)
-            .WithOne(e => e.Lessor)
+        builder.Entity<LessorDetails>().HasMany(e => e.Posts)
+            .WithOne(e => e.LessorDetails)
             .HasForeignKey(e => e.PosterId);
     }
 }
