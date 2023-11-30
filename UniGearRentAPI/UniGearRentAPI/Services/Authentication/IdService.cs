@@ -10,9 +10,9 @@ public class IdService : IIdService
     {
         _userManager = userManager;
     }
-    public string GetId(string userName, string email, string phoneNumber)
+    public string GetId(string userName)
     {
         return _userManager.Users.ToList().First(user =>
-            user.UserName == userName && user.Email == email && user.PhoneNumber == phoneNumber).Id;
+            user.UserName == userName).Id;
     }
 }

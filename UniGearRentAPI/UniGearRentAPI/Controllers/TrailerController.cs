@@ -47,12 +47,11 @@ public class TrailerController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] TrailerPost trailerPost, [Required]string userName, 
-        [Required]string email, [Required]string phoneNumber)
+    public IActionResult Post([FromBody] TrailerPost trailerPost, [Required]string userName)
     {
         _logger.LogInformation("Beginning operation");
         _logger.LogInformation("Updating database");
-        trailerPost.PosterId = _idService.GetId(userName, email, phoneNumber);
+        trailerPost.PosterId = _idService.GetId(userName);
         _trailerRepository.Create(trailerPost);
         _logger.LogInformation("Operation successful");
         return Ok(_trailerRepository.GetById(trailerPost.Id));

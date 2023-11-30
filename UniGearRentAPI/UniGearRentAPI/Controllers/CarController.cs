@@ -48,12 +48,11 @@ public class CarController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] CarPost carPost, [Required]string userName, 
-        [Required]string email, [Required]string phoneNumber)
+    public IActionResult Post([FromBody] CarPost carPost, [Required]string userName)
     {
         _logger.LogInformation("Beginning operation");
         _logger.LogInformation("Updating database");
-        carPost.PosterId = _idService.GetId(userName, email, phoneNumber);
+        carPost.PosterId = _idService.GetId(userName);
         _carPostRepository.Create(carPost);
         _logger.LogInformation("Operation successful");
         return Ok(_carPostRepository.GetById(carPost.Id));
