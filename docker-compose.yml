@@ -25,4 +25,4 @@ services:
       ASPNETCORE_ADMINPASSWORD: "AdminPassword123"
       ASPNETCORE_ISSUERSIGNINGKEY: "PlaceholderSigningKey123"
       ASPNETCORE_VALIDAUDIENCE: "PlaceholderAudience"
-      ASPNETCORE_VALIDISSUERR: "PlaceholderIssuer"
+      ASPNETCORE_VALIDISSUER: "PlaceholderIssuer"
