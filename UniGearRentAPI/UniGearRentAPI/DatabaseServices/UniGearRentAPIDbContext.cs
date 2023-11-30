@@ -16,11 +16,12 @@ public class UniGearRentAPIDbContext : IdentityDbContext<IdentityUser, IdentityR
     public DbSet<TrailerPost> TrailerPosts { get; set; }
     public UniGearRentAPIDbContext ()
     {
-        if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Test")Database.Migrate();
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Test") Database.Migrate();
+        else Database.EnsureCreated();
     }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Testing")
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Test")
         {
             options.UseInMemoryDatabase("TestDatabase");
         }
