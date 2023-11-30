@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+
+  unigearrent-db:
+    image: postgres
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Password123"
+      POSTGRES_DB: "UniGearRentDb"
+    ports:
+      - "1433:5432"
+    
+  unigearrentapi:
+    image: mcgerasz/unigearrentapi:latest
+    build:
+      context: ./UniGearRentAPI/UniGearRentAPI
+      dockerfile: Dockerfile
+    ports:
+      - "9000:80"
+    depends_on: 
+      - unigearrent-db
+    environment:
+      ASPNETCORE_CONNECTIONSTRING: "Server=unigearrent-db;Port=5432;Database=UniGearRentDb;User Id=postgres;Password=Password123;trustServerCertificate=true;"
+      ASPNETCORE_ADMINEMAIL: "admin@admin.com"
+      ASPNETCORE_ADMINPASSWORD: "AdminPassword123"
+      ASPNETCORE_ISSUERSIGNINGKEY: "PlaceholderSigningKey123"
+      ASPNETCORE_VALIDAUDIENCE: "PlaceholderAudience"
+      ASPNETCORE_VALIDISSUERR: "PlaceholderIssuer"
