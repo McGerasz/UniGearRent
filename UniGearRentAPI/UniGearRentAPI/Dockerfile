@@ -10,4 +10,4 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /UniGearRentAPI
 COPY --from=build-env /UniGearRentAPI/out .
-ENTRYPOINT ["dotnet", "SolarWatch.dll"]
+ENTRYPOINT ["dotnet", "UniGearRentAPI.dll"]
