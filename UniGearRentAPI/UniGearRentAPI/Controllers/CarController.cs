@@ -79,22 +79,19 @@ public class CarController : ControllerBase
         if (retrievedPost is null) return NotFound("The id you wanted to update does not correspond to any post's id");
         _logger.LogInformation("Retrieved post entity from database");
         _logger.LogInformation("Updating properties...");
-        CarPost newPost = new CarPost
-        {
-            Id = id,
-            Name = name ?? retrievedPost.Name,
-            Location = location ?? retrievedPost.Location,
-            PosterId = posterId ?? retrievedPost.PosterId,
-            Descritption = description ?? retrievedPost.Descritption,
-            HourlyPrice = hourlyPrice ?? retrievedPost.HourlyPrice,
-            DailyPrice = dailyPrice ?? retrievedPost.DailyPrice,
-            WeeklyPrice = weeklyPrice ?? retrievedPost.WeeklyPrice,
-            SecurityDeposit = securityDeposit ?? retrievedPost.SecurityDeposit,
-            NumberOfSeats = numberOfSeats ?? retrievedPost.NumberOfSeats,
-            CanDeliverToYou = canDeliverToYou ?? retrievedPost.CanDeliverToYou
-        };
+        retrievedPost.Id = id;
+        retrievedPost.Name = name ?? retrievedPost.Name;
+        retrievedPost.Location = location ?? retrievedPost.Location;
+        retrievedPost.PosterId = posterId ?? retrievedPost.PosterId;
+        retrievedPost.Descritption = description ?? retrievedPost.Descritption;
+        retrievedPost.HourlyPrice = hourlyPrice ?? retrievedPost.HourlyPrice;
+        retrievedPost.DailyPrice = dailyPrice ?? retrievedPost.DailyPrice;
+        retrievedPost.WeeklyPrice = weeklyPrice ?? retrievedPost.WeeklyPrice;
+        retrievedPost.SecurityDeposit = securityDeposit ?? retrievedPost.SecurityDeposit;
+        retrievedPost.NumberOfSeats = numberOfSeats ?? retrievedPost.NumberOfSeats;
+        retrievedPost.CanDeliverToYou = canDeliverToYou ?? retrievedPost.CanDeliverToYou;
         _logger.LogInformation("Updating database...");
-        _carPostRepository.Update(newPost);
+        _carPostRepository.Update(retrievedPost);
         _logger.LogInformation("Operation successful");
         return Ok();
 
