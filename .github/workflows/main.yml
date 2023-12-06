@@ -1,0 +1,56 @@
+name: Test and Push to Dockerhub
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Restore dependencies
+        run: dotnet restore UniGearRentAPI/UniGearRentAPI.sln
+      - name: Build
+        run: dotnet build UniGearRentAPI/UniGearRentAPI/UniGearRentAPI.csproj --no-restore
+      - name: Test
+        run: dotnet test UniGearRentAPI/UniGearRentAPI.sln --no-restore --verbosity normal
+
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Docker Compose
+        run: docker-compose --version
+        continue-on-error: true
+      - name: Build and Start Docker Compose
+        run: |
+          docker-compose build
+          docker-compose up -d
+        env:
+          ASPNETCORE_CONNECTIONSTRING: ${{secrets.ASPNETCORE_CONNECTIONSTRING}}
+          ASPNETCORE_ADMINEMAIL: ${{secrets.ASPNETCORE_ADMINEMAIL}}
+          ASPNETCORE_ADMINPASSWORD: ${{secrets.ASPNETCORE_ADMINPASSWORD}}
+          ASPNETCORE_ISSUERSIGNINGKEY: ${{secrets.ASPNETCORE_ISSUERSIGNINGKEY}}
+          ASPNETCORE_VALIDAUDIENCE: ${{secrets.ASPNETCORE_VALIDAUCIENCE}}
+          ASPNETCORE_VALIDISSUER: ${{secrets.ASPNETCORE_VALIDISSUER}}
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+      - name: Push Docker Compose Image to DockerHub
+        run: docker-compose push
+        env:
+          ASPNETCORE_CONNECTIONSTRING: ${{secrets.ASPNETCORE_CONNECTIONSTRING}}
