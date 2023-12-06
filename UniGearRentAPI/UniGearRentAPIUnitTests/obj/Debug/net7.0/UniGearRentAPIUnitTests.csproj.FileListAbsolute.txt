@@ -129,3 +129,5 @@ C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRent
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIUnitTests\obj\Debug\net7.0\UniGearRentAPIUnitTests.pdb
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIUnitTests\obj\Debug\net7.0\UniGearRentAPIUnitTests.genruntimeconfig.cache
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIUnitTests\obj\Debug\net7.0\ref\UniGearRentAPIUnitTests.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIUnitTests\bin\Debug\net7.0\Castle.Core.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIUnitTests\bin\Debug\net7.0\Moq.dll
