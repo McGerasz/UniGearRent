@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using UniGearRentAPI.DatabaseServices;
 using UniGearRentAPI.DatabaseServices.Repositories;
@@ -15,8 +16,8 @@ builder.Services.AddTransient<IRepository<CarPost>, CarPostRepository>();
 builder.Services.AddTransient<IRepository<TrailerPost>, TrailerPostRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IIdService, IdService>();
 builder.Services.AddDbContext<UniGearRentAPIDbContext>();
+builder.Services.AddScoped<IIdService, IdService>(x => new IdService(x.GetService<UniGearRentAPIDbContext>()));
 AddAuthentication();
 AddIdentity();
 var app = builder.Build();
@@ -128,3 +129,4 @@ void AddRoles()
                 }
             }
         }
+public partial class Program { }

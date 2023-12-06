@@ -1,18 +1,20 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace UniGearRentAPI.Services.Authentication;
 
 public class IdService : IIdService
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly IdentityDbContext<IdentityUser, IdentityRole, string> _dbContext;
 
-    public IdService(UserManager<IdentityUser> userManager)
+    public IdService(IdentityDbContext<IdentityUser, IdentityRole, string> dbContext)
     {
-        _userManager = userManager;
+        _dbContext = dbContext;
     }
     public string GetId(string userName)
     {
-        return _userManager.Users.ToList().First(user =>
+        return _dbContext.Users.ToList().First(user =>
             user.UserName == userName).Id;
     }
 }
