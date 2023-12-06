@@ -28,10 +28,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         base.ConfigureWebHost(builder);
         builder.ConfigureTestServices(services =>
         {
-            
             services.AddDbContext<UniGearRentAPIDbContext>();
             services.AddTransient<IRepository<CarPost>, CarPostRepository>();
-            services.AddTransient<IRepository<TrailerPost>, TrailerPostRepository>();;
+            services.AddTransient<IRepository<TrailerPost>, TrailerPostRepository>();
             services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
         });
 
