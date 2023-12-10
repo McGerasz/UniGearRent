@@ -78,22 +78,19 @@ public class TrailerController : ControllerBase
         if (retrievedPost is null) return NotFound("The id you wanted to update does not correspond to any post's id");
         _logger.LogInformation("Retrieved post entity from database");
         _logger.LogInformation("Updating properties...");
-        TrailerPost newPost = new TrailerPost
-        {
-            Id = id,
-            Name = name ?? retrievedPost.Name,
-            Location = location ?? retrievedPost.Location,
-            PosterId = posterId ?? retrievedPost.PosterId,
-            Descritption = description ?? retrievedPost.Descritption,
-            HourlyPrice = hourlyPrice ?? retrievedPost.HourlyPrice,
-            DailyPrice = dailyPrice ?? retrievedPost.DailyPrice,
-            WeeklyPrice = weeklyPrice ?? retrievedPost.WeeklyPrice,
-            SecurityDeposit = securityDeposit ?? retrievedPost.SecurityDeposit,
-            Width = width ?? retrievedPost.Width,
-            Length = length ?? retrievedPost.Length
-        };
+        retrievedPost.Id = id;
+        retrievedPost.Name = name ?? retrievedPost.Name;
+        retrievedPost.Location = location ?? retrievedPost.Location;
+        retrievedPost.PosterId = posterId ?? retrievedPost.PosterId;
+        retrievedPost.Description = description ?? retrievedPost.Description;
+        retrievedPost.HourlyPrice = hourlyPrice ?? retrievedPost.HourlyPrice;
+        retrievedPost.DailyPrice = dailyPrice ?? retrievedPost.DailyPrice;
+        retrievedPost.WeeklyPrice = weeklyPrice ?? retrievedPost.WeeklyPrice;
+        retrievedPost.SecurityDeposit = securityDeposit ?? retrievedPost.SecurityDeposit;
+        retrievedPost.Width = width ?? retrievedPost.Width;
+        retrievedPost.Length = length ?? retrievedPost.Length;
         _logger.LogInformation("Updating database...");
-        _trailerRepository.Update(newPost);
+        _trailerRepository.Update(retrievedPost);
         _logger.LogInformation("Operation successful");
         return Ok();
 
