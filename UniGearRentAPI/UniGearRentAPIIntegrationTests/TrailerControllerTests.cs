@@ -36,7 +36,7 @@ public class TrailerControllerTests
             Id = 1,
             Description = "",
             Location = "",
-            Name = "Initial Car Post",
+            Name = "Initial Trailer Post",
             PosterId = "",
             Width = 100,
             Length = 100
@@ -45,7 +45,7 @@ public class TrailerControllerTests
         var initialGetResponse = await _client.GetAsync($"api/Trailer/1");
         string responseString = await initialGetResponse.Content.ReadAsStringAsync();
         var trailerPost = JsonConvert.DeserializeObject<TrailerPost>(responseString);
-        Assert.That(trailerPost.Name, Is.EqualTo("Initial Car Post"));
+        Assert.That(trailerPost.Name, Is.EqualTo("Initial Trailer Post"));
 
         var patchResponse = await _client.PatchAsync("api/Trailer/1?name=successfulPatch", null);
         var afterPatchGetResponse = await _client.GetAsync($"api/Trailer/1");
