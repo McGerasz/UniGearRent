@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UniGearRentAPI.DatabaseServices;
@@ -11,9 +12,11 @@ using UniGearRentAPI.DatabaseServices;
 namespace UniGearRentAPI.Migrations
 {
     [DbContext(typeof(UniGearRentAPIDbContext))]
-    partial class UniGearRentAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210085345_fixDescriptionTypo")]
+    partial class fixDescriptionTypo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
