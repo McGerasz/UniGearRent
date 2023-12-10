@@ -40,7 +40,7 @@ public class Tests
         CarPost newCarPost = new CarPost
         {
             CanDeliverToYou = true,
-            Descritption = "",
+            Description = "",
             Id = 1,
             Name = "TESTCARPOST",
             Location = "TESTLOCATION",
@@ -49,10 +49,10 @@ public class Tests
         };
         _carPostRepository.Create(newCarPost);
         Assert.That(_carPostRepository.GetAll().Count(), Is.EqualTo(1));
-        newCarPost.Descritption = "TESTDESCRIPTION";
+        newCarPost.Description = "TESTDESCRIPTION";
         _carPostRepository.Update(newCarPost);
         var retrievedCarPost = _carPostRepository.GetById(1);
-        Assert.That(retrievedCarPost.Descritption, Is.EqualTo("TESTDESCRIPTION"));
+        Assert.That(retrievedCarPost.Description, Is.EqualTo("TESTDESCRIPTION"));
         _carPostRepository.Delete(1);
         Assert.That(_carPostRepository.GetAll().Count(), Is.EqualTo(0));
     }
@@ -61,7 +61,7 @@ public class Tests
     {
         TrailerPost newTrailerPost = new TrailerPost
         {
-            Descritption = "",
+            Description = "",
             Id = 2,
             Name = "TESTTRAILERPOST",
             Location = "TESTLOCATION",
@@ -71,10 +71,10 @@ public class Tests
         };
         _trailerPostRepository.Create(newTrailerPost);
         Assert.That(_trailerPostRepository.GetAll().Count(), Is.EqualTo(1));
-        newTrailerPost.Descritption = "TESTDESCRIPTION";
+        newTrailerPost.Description = "TESTDESCRIPTION";
         _trailerPostRepository.Update(newTrailerPost);
         var retrievedTrailerPost = _trailerPostRepository.GetById(2);
-        Assert.That(retrievedTrailerPost.Descritption, Is.EqualTo("TESTDESCRIPTION"));
+        Assert.That(retrievedTrailerPost.Description, Is.EqualTo("TESTDESCRIPTION"));
         _trailerPostRepository.Delete(2);
         Assert.That(_trailerPostRepository.GetAll().Count(), Is.EqualTo(0));
     }

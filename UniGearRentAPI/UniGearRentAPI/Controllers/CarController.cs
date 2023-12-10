@@ -83,7 +83,7 @@ public class CarController : ControllerBase
         retrievedPost.Name = name ?? retrievedPost.Name;
         retrievedPost.Location = location ?? retrievedPost.Location;
         retrievedPost.PosterId = posterId ?? retrievedPost.PosterId;
-        retrievedPost.Descritption = description ?? retrievedPost.Descritption;
+        retrievedPost.Description = description ?? retrievedPost.Description;
         retrievedPost.HourlyPrice = hourlyPrice ?? retrievedPost.HourlyPrice;
         retrievedPost.DailyPrice = dailyPrice ?? retrievedPost.DailyPrice;
         retrievedPost.WeeklyPrice = weeklyPrice ?? retrievedPost.WeeklyPrice;

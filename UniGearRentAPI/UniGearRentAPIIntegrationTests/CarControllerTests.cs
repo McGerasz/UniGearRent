@@ -34,7 +34,7 @@ public class Tests
         {
             Id = 1,
             CanDeliverToYou = true,
-            Descritption = "",
+            Description = "",
             Location = "",
             Name = "Initial Car Post",
             PosterId = "",
