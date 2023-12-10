@@ -26,6 +26,7 @@ public class Tests
             Id = "TESTID",
             LockoutEnabled = false
         });
+        _dbContext.SaveChanges();
     }
     [SetUp]
     public void Setup()
