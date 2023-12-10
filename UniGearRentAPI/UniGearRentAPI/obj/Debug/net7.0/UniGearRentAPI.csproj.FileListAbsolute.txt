@@ -55,3 +55,4 @@ C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRent
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPI\obj\Debug\net7.0\UniGearRentAPI.pdb
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPI\obj\Debug\net7.0\UniGearRentAPI.genruntimeconfig.cache
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPI\obj\Debug\net7.0\ref\UniGearRentAPI.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPI\bin\Debug\net7.0\Newtonsoft.Json.dll

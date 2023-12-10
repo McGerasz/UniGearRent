@@ -5,5 +5,7 @@
     &lt;TestId&gt;NUnit3x::A534DD9D-E516-4AC4-AC89-F5DD68AA8110::net7.0::UniGearRentAPIUnitTests.IdServiceTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::923353BB-8223-47AC-83ED-A27F62B7C4CC::net7.0::UniGearRentAPIIntegrationTests.Tests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::923353BB-8223-47AC-83ED-A27F62B7C4CC::net7.0::UniGearRentAPIIntegrationTests.TrailerControllerTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::923353BB-8223-47AC-83ED-A27F62B7C4CC::net7.0::UniGearRentAPIIntegrationTests.PostControllerTests.GetByUserTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::923353BB-8223-47AC-83ED-A27F62B7C4CC::net7.0::UniGearRentAPIIntegrationTests.PostControllerTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

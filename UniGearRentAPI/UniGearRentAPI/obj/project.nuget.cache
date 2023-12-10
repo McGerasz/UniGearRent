@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6fGmvyRM75dFt9OH+9TddP5yARHFzxX1SGI1aDDxkyynwVIcO3cv8VMU0jQZtyoHhWIrP2ct5+Fuvp6fBx74SA==",
+  "dgSpecHash": "JtvI4hFtPj4Uan9Pw2OFszToJgpIYu1eO1hSm26KN15coTRq4Jmr/ff6FgvMytMcp2REeMcuApv431fStAk45g==",
   "success": true,
   "projectFilePath": "C:\\Users\\gergo\\Documents\\Codecool\\Jobhunt\\UniGearRent\\UniGearRentAPI\\UniGearRentAPI\\UniGearRentAPI.csproj",
   "expectedPackageFiles": [
@@ -37,6 +37,7 @@
     "C:\\Users\\gergo\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.15.1\\microsoft.identitymodel.tokens.6.15.1.nupkg.sha512",
     "C:\\Users\\gergo\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\gergo\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\gergo\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\gergo\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\gergo\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\gergo\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",

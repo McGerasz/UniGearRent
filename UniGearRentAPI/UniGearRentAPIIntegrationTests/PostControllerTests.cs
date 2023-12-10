@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using UniGearRentAPI.Models;
 
 namespace UniGearRentAPIIntegrationTests;
@@ -75,7 +76,10 @@ public class PostControllerTests
     [Test]
     public async Task GetByUserTest()
     {
-        Assert.Pass();
+        var user1PostsGetResponse = await _client.GetAsync($"api/Post/byUser/TestUser1");
+        string responseString = await user1PostsGetResponse.Content.ReadAsStringAsync();
+        var processedPosts = JsonConvert.DeserializeObject<ICollection<Dictionary<string, string>>>(responseString);
+        Assert.That(processedPosts.All(x => x["posterId"] == "TESTID1"));
     }
 
     [Test]
