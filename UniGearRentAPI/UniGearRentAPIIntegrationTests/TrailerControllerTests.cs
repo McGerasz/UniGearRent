@@ -1,3 +1,8 @@
+using System.Net;
+using System.Net.Http.Json;
+using Newtonsoft.Json;
+using UniGearRentAPI.Models;
+
 namespace UniGearRentAPIIntegrationTests;
 
 public class TrailerControllerTests
@@ -26,6 +31,38 @@ public class TrailerControllerTests
     [Test]
     public async Task TrailerControllerCRUDTest()
     {
-        
+        var initialTrailerPost = new TrailerPost
+        {
+            Id = 1,
+            Description = "",
+            Location = "",
+            Name = "Initial Car Post",
+            PosterId = "",
+            Width = 100,
+            Length = 100
+        };
+        var postResponse = await _client.PostAsync("api/Trailer?userName=Admin", JsonContent.Create(initialTrailerPost));
+        var initialGetResponse = await _client.GetAsync($"api/Trailer/1");
+        string responseString = await initialGetResponse.Content.ReadAsStringAsync();
+        var trailerPost = JsonConvert.DeserializeObject<TrailerPost>(responseString);
+        Assert.That(trailerPost.Name, Is.EqualTo("Initial Car Post"));
+
+        var patchResponse = await _client.PatchAsync("api/Trailer/1?name=successfulPatch", null);
+        var afterPatchGetResponse = await _client.GetAsync($"api/Trailer/1");
+        string responseStringAfterPatch = await afterPatchGetResponse.Content.ReadAsStringAsync();
+        var trailerPostAfterPatch = JsonConvert.DeserializeObject<TrailerPost>(responseStringAfterPatch);
+        Assert.That(trailerPostAfterPatch.Name, Is.EqualTo("successfulPatch"));
+
+        trailerPostAfterPatch.Name = "Successful Put Request";
+        var putResponse = await _client.PutAsync("api/Trailer", JsonContent.Create(trailerPostAfterPatch));
+        var afterPutGetResponse = await _client.GetAsync("api/Trailer/1");
+        string responseStringAfterPut = await afterPutGetResponse.Content.ReadAsStringAsync();
+        var trailerPostAfterPut = JsonConvert.DeserializeObject<TrailerPost>(responseStringAfterPut);
+        Assert.That(trailerPostAfterPut.Name, Is.EqualTo("Successful Put Request"));
+
+        var deleteResponse = await _client.DeleteAsync($"api/Trailer/1");
+        var afterDeleteGetResponse = await _client.GetAsync("api/Trailer/1");
+        Assert.That(afterDeleteGetResponse.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
     }
+    
 }
