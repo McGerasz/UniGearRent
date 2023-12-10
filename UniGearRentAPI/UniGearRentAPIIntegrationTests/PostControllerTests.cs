@@ -36,7 +36,7 @@ public class PostControllerTests
         });
         _factory._carRepository.Create(new CarPost
         {
-            Id = 1,
+            Id = 7,
             CanDeliverToYou = true,
             Description = "",
             Location = "Budapest",
@@ -46,7 +46,7 @@ public class PostControllerTests
         });
         _factory._trailerRepository.Create(new TrailerPost
         {
-            Id = 2,
+            Id = 8,
             Description = "",
             Location = "Miskolc",
             Name = "TESTTRAILER1",
@@ -56,7 +56,7 @@ public class PostControllerTests
         });
         _factory._carRepository.Create(new CarPost
         {
-            Id = 3,
+            Id = 9,
             CanDeliverToYou = true,
             Description = "",
             Location = "Budapest",
@@ -85,6 +85,9 @@ public class PostControllerTests
     [Test]
     public async Task GetByLocationTest()
     {
-        Assert.Pass();
+        var budapestPostsGetResponse = await _client.GetAsync($"api/Post/byLocation/Budapest");
+        string responseString = await budapestPostsGetResponse.Content.ReadAsStringAsync();
+        var processedPosts = JsonConvert.DeserializeObject<ICollection<Dictionary<string, string>>>(responseString);
+        Assert.That(processedPosts.All(x => x["location"] == "Budapest"));
     }
 }
