@@ -15,9 +15,9 @@ const Navbar: React.FC = () => {
                 </NavbarBrand>
             </Nav>
             <Nav>
-            <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" to="/">
+            <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" to="/Login">
                         Log in
-                </Link>
+            </Link>
             </Nav>
         </Container>
     </BootstrapNavbar>
