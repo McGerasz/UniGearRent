@@ -16,7 +16,7 @@ public class AuthService : IAuthService
         _dbContext = dbContext;
     }
 
-    public async Task<AuthResult> RegisterAsync(string email, string username,string phoneNumber, string password, string role)
+    public async Task<AuthResult> RegisterAsync(string email, string username, string password, string phoneNumber, string role)
     {
         var user = new IdentityUser { UserName = username, Email = email, PhoneNumber = phoneNumber};
         var result = await _userManager.CreateAsync(user, password);

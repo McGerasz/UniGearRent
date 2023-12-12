@@ -29,8 +29,8 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         _logger.LogInformation("Registering new user...");
-        var result = await _authService.RegisterAsync(request.Email, request.Username, request.PhoneNumber,
-            request.Password, "User");
+        var result = await _authService.RegisterAsync(request.Email, request.Username,
+            request.Password, request.PhoneNumber, "User");
         
         if (!result.Success)
         {
@@ -57,8 +57,8 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         _logger.LogInformation("Registering new user...");
-        var result = await _authService.RegisterAsync(request.Email, request.Username, request.PhoneNumber,
-            request.Password, "Lessor");
+        var result = await _authService.RegisterAsync(request.Email, request.Username, request.Password, request.PhoneNumber, 
+             "Lessor");
 
         if (!result.Success)
         {
