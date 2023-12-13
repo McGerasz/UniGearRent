@@ -2,7 +2,7 @@ import { Col, Container, Row, Card, CardTitle, CardBody, CardText } from "react-
 import { RegistrationType } from '../Models/RegistrationType';
 import { useState } from "react";
 
-const RegisterTypeComponent: React.FC<{registerTypeSetter: React.Dispatch<React.SetStateAction<RegistrationType>>,
+const RegisterTypeComponent: React.FC<{registerTypeSetter: React.Dispatch<React.SetStateAction<RegistrationType | undefined>>,
 typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) => {
     const [userOptionIsHover, setUserOptionIsHover] = useState(false)
     const [lessorOptionIsHover, setLessorOptionIsHover] = useState(false)
