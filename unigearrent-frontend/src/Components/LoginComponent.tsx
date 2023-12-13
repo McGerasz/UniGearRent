@@ -24,7 +24,7 @@ const LoginComponent: React.FC = () =>{
                 </Button>
             </Row>
             <Row className='mt-3 text-center'>
-            <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover" to="/Login">
+            <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover" to="/register">
                         Click here to register
             </Link>
             </Row>

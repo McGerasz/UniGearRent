@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Layout from './Pages/Layout';
 import LoginPage from './Pages/LoginPage';
 import HomePage from './Pages/HomePage';
+import RegisterPage from './Pages/RegisterPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -19,8 +20,11 @@ function App() {
           element: <HomePage />
         },
         {
-          path: "/Login",
+          path: "/login",
           element: <LoginPage />
+        },{
+          path: "/register",
+          element: <RegisterPage />
         }
       ]
     }
