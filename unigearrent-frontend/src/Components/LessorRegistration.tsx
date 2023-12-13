@@ -4,7 +4,7 @@ import PhoneNumberValidator from "../Utils/PhoneNumberValidator"
 import { FormEvent, SyntheticEvent, useState } from "react"
 import PasswordValidator from "../Utils/PasswordValidator"
 
-const LessorRegistration: React.FC = () => {
+const LessorRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) => {
     const [validPhoneNumber, setValidPhoneNumber] = useState<Boolean>(true)
     const [validPassword, setValidPassword] = useState<Boolean>(true)
     const SubmitHandler: (e: React.FormEvent) => void = (e) => {
@@ -51,7 +51,7 @@ const LessorRegistration: React.FC = () => {
         <Form.Label>Name</Form.Label>
         <Form.Control type="text" placeholder="Enter your or your company's name" name="name"/>
         </Form.Group>
-        <Form.Group className="mb-5 justify-content-md-center" controlId="formBasicPassword">
+        <Form.Group className="mb-3 justify-content-md-center" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Password" name="password" />
         {validPassword ? <></> : <p style={{color:"red"}}>The password needs to contain at least 8 characters; including at least 1 uppercase letter, 1 lowercase letter and 1 number!</p>}
@@ -64,6 +64,7 @@ const LessorRegistration: React.FC = () => {
         <Row className='mt-3 text-center'>
         </Row>
     </Form>
+        <p onClick={() => props.typeSelectedSetter(false)} style={{cursor: "pointer"}}><u>Select a different account type</u></p>
   </Container>)
 }
 export default LessorRegistration

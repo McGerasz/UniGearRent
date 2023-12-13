@@ -11,7 +11,7 @@ const RegisterComponent: React.FC = () =>{
     const [registerType, setRegisterType] = useState<RegistrationType>()
     const [typeSelected, setTypeSelected] = useState(false)
     return(
-        <>{typeSelected ? (registerType === RegistrationType.User.valueOf() ? (<UserRegistration />) : (<LessorRegistration />)) : <RegisterTypeComponent registerTypeSetter={setRegisterType} typeSelectedSetter={setTypeSelected} />}</>
+        <>{typeSelected ? (registerType === RegistrationType.User.valueOf() ? (<UserRegistration typeSelectedSetter={setTypeSelected}/>) : (<LessorRegistration typeSelectedSetter={setTypeSelected}/>)) : <RegisterTypeComponent registerTypeSetter={setRegisterType} typeSelectedSetter={setTypeSelected} />}</>
       )
 }
 export default RegisterComponent
