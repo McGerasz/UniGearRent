@@ -21,7 +21,7 @@ typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) =>
         </Row>
         <Row className="mt-5">
             <Col className="text-center" onClick={() => OnClickHandler("User")} style={{cursor: "pointer"}}>
-                <Card className="h-100" style={{backgroundColor: userOptionIsHover ? "#39FF14" : "white", color: userOptionIsHover ? "white" : "black"}} 
+                <Card className="h-100" style={{backgroundColor: userOptionIsHover ? "#AC9362" : "white", color: userOptionIsHover ? "white" : "black"}} 
                 onMouseEnter={() => setUserOptionIsHover(true)} onMouseLeave={() => setUserOptionIsHover(false)}>
                     <CardBody>
                         <CardTitle><h1>User</h1></CardTitle>
@@ -31,7 +31,7 @@ typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) =>
                 </Card>
             </Col>
             <Col className="text-center" onClick={() => OnClickHandler("Lessor")} style={{cursor: "pointer"}}>
-            <Card className="h-100" style={{backgroundColor: lessorOptionIsHover ? "#39FF14" : "white", color: lessorOptionIsHover ? "white" : "black"}} 
+            <Card className="h-100" style={{backgroundColor: lessorOptionIsHover ? "#AC9362" : "white", color: lessorOptionIsHover ? "white" : "black"}} 
                 onMouseEnter={() => setLessorOptionIsHover(true)} onMouseLeave={() => setLessorOptionIsHover(false)}>
                     <CardBody>
                         <CardTitle><h1>Lessor</h1></CardTitle>
