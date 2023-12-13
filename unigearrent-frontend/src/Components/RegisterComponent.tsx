@@ -6,11 +6,12 @@ import RegisterTypeComponent from './RegisterTypeComponent'
 import { useState } from 'react';
 import { RegistrationType } from '../Models/RegistrationType';
 import UserRegistration from './UserRegistration'
+import LessorRegistration from './LessorRegistration';
 const RegisterComponent: React.FC = () =>{
     const [registerType, setRegisterType] = useState<RegistrationType>()
     const [typeSelected, setTypeSelected] = useState(false)
     return(
-        <>{typeSelected ? (registerType === RegistrationType.User.valueOf() ? (<UserRegistration />) : (<></>)) : <RegisterTypeComponent registerTypeSetter={setRegisterType} typeSelectedSetter={setTypeSelected} />}</>
+        <>{typeSelected ? (registerType === RegistrationType.User.valueOf() ? (<UserRegistration />) : (<LessorRegistration />)) : <RegisterTypeComponent registerTypeSetter={setRegisterType} typeSelectedSetter={setTypeSelected} />}</>
       )
 }
 export default RegisterComponent
