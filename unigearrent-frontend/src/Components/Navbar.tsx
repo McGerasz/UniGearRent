@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BootstrapNavbar from 'react-bootstrap/Navbar';
-import { Container, Nav, NavbarBrand } from 'react-bootstrap';
+import { Col, Container, Nav, NavbarBrand, Row } from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 
 const Navbar: React.FC = () => {
@@ -15,9 +15,18 @@ const Navbar: React.FC = () => {
                 </NavbarBrand>
             </Nav>
             <Nav>
-            <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" to="/login">
-                        Log in
-            </Link>
+                <Row>
+                    <Col>
+                        <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" to="/register">
+                                    Register
+                        </Link>
+                    </Col>
+                    <Col>
+                        <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" to="/login">
+                                    Log in
+                        </Link>
+                    </Col>
+                </Row>
             </Nav>
         </Container>
     </BootstrapNavbar>
