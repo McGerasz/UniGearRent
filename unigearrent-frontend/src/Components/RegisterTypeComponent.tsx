@@ -1,6 +1,6 @@
 import { Col, Container, Row, Card, CardTitle, CardBody, CardText } from "react-bootstrap"
 import { RegistrationType } from '../Models/RegistrationType';
-import { useState } from "react";
+import React, { useState } from "react";
 
 const RegisterTypeComponent: React.FC<{registerTypeSetter: React.Dispatch<React.SetStateAction<RegistrationType | undefined>>,
 typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) => {
@@ -11,9 +11,6 @@ typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) =>
         if(input === "User") props.registerTypeSetter(RegistrationType.User);
         if(input === "Lessor") props.registerTypeSetter(RegistrationType.Lessor);
         props.typeSelectedSetter(true)
-    }
-    const HoverHandler: (input: boolean) => void = (input) => {
-
     }
     return (<Container className="mt-5">
         <Row className="text-center">
