@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
@@ -7,8 +7,10 @@ import Layout from './Pages/Layout';
 import LoginPage from './Pages/LoginPage';
 import HomePage from './Pages/HomePage';
 import RegisterPage from './Pages/RegisterPage';
+import { UserProfileProvider } from './Utils/UserProfileContextProvider';
 
 function App() {
+  
   const router = createBrowserRouter([
     {
       path: "/",
@@ -30,9 +32,9 @@ function App() {
     }
   ]);
   return (
-    <>
-    <RouterProvider router={router} />
-    </>
+    <UserProfileProvider>
+      <RouterProvider router={router} />
+    </UserProfileProvider>
   );
 }
 

@@ -9,7 +9,7 @@ const Layout: React.FC = () => {
             <Navbar />
         </Row>
         <Row>
-            <Outlet />
+            <Outlet/>
         </Row>
     </Container>)
 }
