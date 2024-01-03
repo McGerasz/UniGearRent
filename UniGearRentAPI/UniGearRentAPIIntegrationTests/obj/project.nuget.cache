@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2M+/hoAzI9fIHL95C0i+Yn9PvQaCOH75xhUos9GLsxkV9G1D8GpukVsCLkuup8uiPmtCWqn54ttNgfRJjszkWQ==",
+  "dgSpecHash": "kr/PgbsTNOk2fUozmvH5YtzxdMOTb30BJFX/ihBNi+FAhEh5vJdYdCpXXf+tGWIlGUk/l4YMgUAc4/5M2hdekw==",
   "success": true,
   "projectFilePath": "C:\\Users\\gergo\\Documents\\Codecool\\Jobhunt\\UniGearRent\\UniGearRentAPI\\UniGearRentAPIIntegrationTests\\UniGearRentAPIIntegrationTests.csproj",
   "expectedPackageFiles": [
@@ -79,7 +79,10 @@
     "C:\\Users\\gergo\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
     "C:\\Users\\gergo\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
     "C:\\Users\\gergo\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
-    "C:\\Users\\gergo\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
+    "C:\\Users\\gergo\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
+    "C:\\Users\\gergo\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\gergo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\gergo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512"
   ],
   "logs": []
 }

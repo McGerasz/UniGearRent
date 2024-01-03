@@ -9,6 +9,23 @@ using UniGearRentAPI.Models;
 using UniGearRentAPI.Services.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("*")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    options.AddPolicy("AllowLocalhost", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:3000", "http://localhost:3001")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,6 +38,7 @@ builder.Services.AddScoped<IIdService, IdService>(x => new IdService(x.GetServic
 AddAuthentication();
 AddIdentity();
 var app = builder.Build();
+app.UseCors();
 if (Environment.GetEnvironmentVariable("Environment") != "Testing")
 {
     AddRoles();
