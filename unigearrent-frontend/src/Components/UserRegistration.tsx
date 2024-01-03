@@ -3,11 +3,13 @@ import { Link } from "react-router-dom"
 import PhoneNumberValidator from "../Utils/PhoneNumberValidator"
 import { FormEvent, SyntheticEvent, useState } from "react"
 import PasswordValidator from "../Utils/PasswordValidator"
+import BackendURL from "../Utils/BackendURL"
 
 const UserRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) => {
     const [validPhoneNumber, setValidPhoneNumber] = useState<Boolean>(true)
     const [validPassword, setValidPassword] = useState<Boolean>(true)
-    const SubmitHandler: (e: React.FormEvent) => void = (e) => {
+    const url = BackendURL;
+    const SubmitHandler: (e: React.FormEvent) => void = async (e) => {
         e.preventDefault();
         setValidPhoneNumber(true)
         setValidPassword(true)
@@ -29,6 +31,21 @@ const UserRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.SetSt
             isValid = false
         }
         if(!isValid) return;
+        const data = {
+            email: target.email.value,
+            username: target.username.value,
+            phoneNumber: target.phoneNumber.value,
+            firstName: target.firstname.value,
+            lastName: target.lastname.value,
+            password: target.password.value
+        }
+        await fetch(url + "Auth/RegisterUser", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(data)
+        });
         alert("Successful registration");
     }
     return(<Container className='w-50 mt-5 align-items-center'>

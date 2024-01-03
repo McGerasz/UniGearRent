@@ -5,11 +5,13 @@ import { FormEvent, SyntheticEvent, useContext, useState } from "react"
 import PasswordValidator from "../Utils/PasswordValidator"
 import { UserProfileProvider, useUserProfile } from "../Utils/UserProfileContextProvider"
 import { UserProfile } from "../Models/UserProfile"
+import BackendURL from "../Utils/BackendURL"
 
 const LessorRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) => {
+    const url: string = BackendURL;
     const [validPhoneNumber, setValidPhoneNumber] = useState<Boolean>(true)
     const [validPassword, setValidPassword] = useState<Boolean>(true);
-    const SubmitHandler: (e: React.FormEvent) => void = (e) => {
+    const SubmitHandler: (e: React.FormEvent) => void = async (e) => {
         e.preventDefault();
         setValidPhoneNumber(true)
         setValidPassword(true)
@@ -17,8 +19,7 @@ const LessorRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.Set
             email: {value: string};
             username: {value: string};
             phoneNumber: {value: string};
-            firstname: {value: string};
-            lastname: {value: string};
+            name: {value: string};
             password: {value: string};
         }
         let isValid: boolean = true;
@@ -31,6 +32,20 @@ const LessorRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.Set
             isValid = false
         }
         if(!isValid) return;
+        const data = {
+            email: target.email.value,
+            username: target.username.value,
+            phoneNumber: target.phoneNumber.value,
+            name: target.name.value,
+            password: target.password.value
+        }
+        await fetch(url + "Auth/RegisterLessor", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(data)
+        });
         alert("Successful registration");
     }
     return(<Container className='w-50 mt-5 align-items-center'>
