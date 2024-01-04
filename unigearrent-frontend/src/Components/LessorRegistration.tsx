@@ -1,5 +1,5 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, NavigateFunction, useNavigate } from "react-router-dom"
 import PhoneNumberValidator from "../Utils/PhoneNumberValidator"
 import { FormEvent, SyntheticEvent, useContext, useState } from "react"
 import PasswordValidator from "../Utils/PasswordValidator"
@@ -9,6 +9,7 @@ import BackendURL from "../Utils/BackendURL"
 
 const LessorRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) => {
     const url: string = BackendURL;
+    const navigate: NavigateFunction = useNavigate();
     const [validPhoneNumber, setValidPhoneNumber] = useState<Boolean>(true)
     const [validPassword, setValidPassword] = useState<Boolean>(true);
     const SubmitHandler: (e: React.FormEvent) => void = async (e) => {
@@ -47,6 +48,7 @@ const LessorRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.Set
             body:JSON.stringify(data)
         });
         alert("Successful registration");
+        navigate("/");
     }
     return(<Container className='w-50 mt-5 align-items-center'>
     <h1 className="text-center mb-5">Enter your registration details</h1>
