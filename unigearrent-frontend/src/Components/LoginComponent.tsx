@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Container, Row } from 'react-bootstrap';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { useUserProfile } from '../Utils/UserProfileContextProvider';
-import React from 'react';
+import React, { useState } from 'react';
 import BackendURL from '../Utils/BackendURL';
 import { jwtDecode } from 'jwt-decode';
 import { Profile } from '../Models/Profile';
@@ -14,8 +14,9 @@ const LoginComponent: React.FC = () =>{
     const navigate: NavigateFunction = useNavigate();
     const url = BackendURL;
     const userProfile = useUserProfile();
+    let correctLogin: boolean = true;
+    const [successfulLogin, setSuccessfulLogin] = useState<boolean>(true);
     const LoginHandler: (e: React.FormEvent) => void = async (e) => {
-        let successfulLogin: boolean = true;
         e.preventDefault();
         const target = e.target as typeof e.target & {
             email: {value: string};
@@ -31,6 +32,7 @@ const LoginComponent: React.FC = () =>{
             phoneNumber: string,
             token: string
         }
+        let noError: boolean = true;
         let response;
         response = await fetch(url + "Auth/Login", {
             method: "POST",
@@ -39,18 +41,21 @@ const LoginComponent: React.FC = () =>{
             },
             body: JSON.stringify(data)
         }).then(res => {
-            if(res.ok)
-            return res.json()
+            if(res.ok){
+                noError = true;
+                correctLogin = true;
+                return res.json()
+            }
             else{
-                successfulLogin = false;
-                throw Error("")
+                correctLogin = false;
             }
         }).catch(error => {
             console.log(error);
+            noError = false;
             alert("There was an error during login");
-            successfulLogin = false;
         }) as LoginResponse;
-        if(!successfulLogin) return;
+        setSuccessfulLogin(correctLogin);
+        if(!correctLogin || !noError) return;
         type jwtDecodeType = {
             exp: number,
             "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string,
@@ -74,9 +79,12 @@ const LoginComponent: React.FC = () =>{
             <Form.Control type="email" placeholder="Enter email" name='email'/>
             </Form.Group>
     
-            <Form.Group className="mb-5 justify-content-md-center" controlId="formBasicPassword">
+            <Form.Group className="justify-content-md-center" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" name='password'/>
+            <Row className="mb-3" style={{color:"red", visibility:(successfulLogin ? "hidden": "visible"), justifyContent:"center"}}>
+                The provided email and/or password was incorrect
+            </Row>
             </Form.Group>
             <Row className='w-75 mx-auto'>
                 <Button className='btn btn-dark' variant="primary" type="submit">
