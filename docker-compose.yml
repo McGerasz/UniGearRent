@@ -26,3 +26,13 @@ services:
       ASPNETCORE_ISSUERSIGNINGKEY: "PlaceholderSigningKey123"
       ASPNETCORE_VALIDAUDIENCE: "PlaceholderAudience"
       ASPNETCORE_VALIDISSUER: "PlaceholderIssuer"
+  
+  unigearrent-frontend:
+    image: mcgerasz/unigearrent-frontend:latest
+    build:
+      context: ./unigearrent-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - unigearrentapi
