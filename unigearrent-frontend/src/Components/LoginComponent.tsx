@@ -8,7 +8,9 @@ import BackendURL from '../Utils/BackendURL';
 import { jwtDecode } from 'jwt-decode';
 import { Profile } from '../Models/Profile';
 import { RegistrationType } from '../Models/RegistrationType';
+import Cookies from 'universal-cookie';
 const LoginComponent: React.FC = () =>{
+    const cookies = new Cookies();
     const navigate: NavigateFunction = useNavigate();
     const url = BackendURL;
     const userProfile = useUserProfile();
@@ -61,6 +63,7 @@ const LoginComponent: React.FC = () =>{
         }
         let profile = new Profile(response.userName, response.phoneNumber, response.email, response.token, RegistrationType[(jwtDecode(response.token) as jwtDecodeType)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as keyof typeof RegistrationType]);
         userProfile.setUserProfile(profile);
+        cookies.set('profile', profile, {expires: new Date(Date.now() + 30*60000)});
         navigate("/");
     }
     return(

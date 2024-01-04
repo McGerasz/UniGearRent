@@ -3,12 +3,15 @@ import BootstrapNavbar from 'react-bootstrap/Navbar';
 import { Col, Container, Nav, NavbarBrand, Row } from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import { useUserProfile } from '../Utils/UserProfileContextProvider';
+import Cookies from 'universal-cookie';
 
 const Navbar: React.FC = () => {
+    let cookies = new Cookies();
     let profile = useUserProfile().userProfile;
     const profileSetter = useUserProfile().setUserProfile;
     const LogoutHandler: () => void = () => {
         profileSetter(null);
+        cookies.remove("profile")
     }
     return(
     <BootstrapNavbar style={{backgroundColor: "	#d9b99b"}} data-bs-theme="light">
