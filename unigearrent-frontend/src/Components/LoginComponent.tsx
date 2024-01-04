@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Container, Row } from 'react-bootstrap';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { useUserProfile } from '../Utils/UserProfileContextProvider';
 import React from 'react';
 import BackendURL from '../Utils/BackendURL';
@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Profile } from '../Models/Profile';
 import { RegistrationType } from '../Models/RegistrationType';
 const LoginComponent: React.FC = () =>{
+    const navigate: NavigateFunction = useNavigate();
     const url = BackendURL;
     const userProfile = useUserProfile();
     const LoginHandler: (e: React.FormEvent) => void = async (e) => {
@@ -60,6 +61,7 @@ const LoginComponent: React.FC = () =>{
         }
         let profile = new Profile(response.userName, response.phoneNumber, response.email, response.token, RegistrationType[(jwtDecode(response.token) as jwtDecodeType)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as keyof typeof RegistrationType]);
         userProfile.setUserProfile(profile);
+        navigate("/");
     }
     return(
     <Container className='w-50 mt-5 align-items-center'>
