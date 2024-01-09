@@ -9,6 +9,7 @@ import HomePage from './Pages/HomePage';
 import RegisterPage from './Pages/RegisterPage';
 import { UserProfileProvider, useUserProfile } from './Utils/UserProfileContextProvider';
 import Cookies from 'universal-cookie';
+import SearchPage from './Pages/SearchPage';
 
 function App() {
   let cookies = new Cookies();
@@ -33,6 +34,9 @@ function App() {
         },{
           path: "/register",
           element: <RegisterPage />
+        },{
+          path: "/search",
+          element: <SearchPage />
         }
       ]
     }
