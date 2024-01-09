@@ -23,6 +23,11 @@ const Navbar: React.FC = () => {
                 </Link>
                 </NavbarBrand>
             </Nav>
+            <Nav className='me-auto w-30'>
+                <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{fontSize:"25px"}} to="/search">
+                    Search
+                </Link>
+            </Nav>
             <Nav>
                 {profile ? (
                 <Row>
