@@ -1,8 +1,34 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { PostCardData } from "../Models/PostCardData";
+import BackendURL from "../Utils/BackendURL";
 
-const PostSearchComponent: React.FC = () => {
+const PostSearchComponent: React.FC<{searchDataSetter: React.Dispatch<React.SetStateAction<Array<PostCardData>>>}> = (props) => {
+    const SubmitHandler: (e: React.FormEvent) => void = async (e) => {
+        e.preventDefault();
+        const target = e.target as typeof e.target & {
+            loc: {value: string};
+            poster: {value: string};
+        }
+        console.log(target.loc.value);
+        console.log(target.poster.value);
+        if(!target.loc.value && !target.poster.value) return;
+        if(target.loc.value != ""){
+            let response = await fetch(BackendURL + "Post/byLocation/" + target.loc.value).then(resp => resp.json())
+            let processedData = response.map((element: any) => {
+                return new PostCardData(element.id, element.name, element.location, element.posterId, element.description)
+            })
+            props.searchDataSetter(processedData as Array<PostCardData>);
+        }
+        else{
+            let response = await fetch(BackendURL + "Post/byUser/" + target.poster.value).then(resp => resp.json())
+            let processedData = response.map((element: any) => {
+                return new PostCardData(element.id, element.name, element.location, element.posterId, element.description)
+            })
+            props.searchDataSetter(processedData as Array<PostCardData>);
+        }
+    }
     return(
-    <Form>
+    <Form onSubmit={SubmitHandler} className="mb-5">
         <Row>
             <Col>
                 <Form.Group className="mb-3" controlId="formBasicLocation">
