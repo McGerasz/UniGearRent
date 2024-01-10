@@ -34,6 +34,16 @@ public class PostControllerTests
             LockoutEnabled = false,
             UserName = "TestUser2"
         });
+        _factory._testUniGearRentAPIDbContext.LessorsDetails.Add(new LessorDetails
+        {
+            Name = "TESTNAME1",
+            PosterId = "TESTID1"
+        });
+        _factory._testUniGearRentAPIDbContext.LessorsDetails.Add(new LessorDetails
+        {
+            Name = "TESTNAME2",
+            PosterId = "TESTID2"
+        });
         _factory._carRepository.Create(new CarPost
         {
             Id = 7,
@@ -76,7 +86,7 @@ public class PostControllerTests
     [Test]
     public async Task GetByUserTest()
     {
-        var user1PostsGetResponse = await _client.GetAsync($"api/Post/byUser/TestUser1");
+        var user1PostsGetResponse = await _client.GetAsync($"api/Post/byName/testname1");
         string responseString = await user1PostsGetResponse.Content.ReadAsStringAsync();
         var processedPosts = JsonConvert.DeserializeObject<ICollection<Dictionary<string, string>>>(responseString);
         Assert.That(processedPosts.All(x => x["posterId"] == "TESTID1"));

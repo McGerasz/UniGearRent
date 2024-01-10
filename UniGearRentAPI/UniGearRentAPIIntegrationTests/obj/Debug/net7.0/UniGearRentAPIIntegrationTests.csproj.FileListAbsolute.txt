@@ -428,3 +428,8 @@ C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRent
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\obj\Debug\net7.0\UniGearRentAPIIntegrationTests.pdb
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\obj\Debug\net7.0\UniGearRentAPIIntegrationTests.genruntimeconfig.cache
 C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\obj\Debug\net7.0\ref\UniGearRentAPIIntegrationTests.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\bin\Debug\net7.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\bin\Debug\net7.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\bin\Debug\net7.0\refs\Microsoft.Extensions.Identity.Core.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\bin\Debug\net7.0\refs\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\gergo\Documents\Codecool\Jobhunt\UniGearRent\UniGearRentAPI\UniGearRentAPIIntegrationTests\obj\Debug\net7.0\UniGearRentAPIIntegrationTests.sourcelink.json

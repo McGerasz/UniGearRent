@@ -20,7 +20,7 @@ const PostSearchComponent: React.FC<{searchDataSetter: React.Dispatch<React.SetS
             props.searchDataSetter(processedData as Array<PostCardData>);
         }
         else{
-            let response = await fetch(BackendURL + "Post/byUser/" + target.poster.value).then(resp => resp.json())
+            let response = await fetch(BackendURL + "Post/byName/" + target.poster.value).then(resp => resp.json())
             let processedData = response.map((element: any) => {
                 return new PostCardData(element.id, element.name, element.location, element.posterId, element.description)
             })
