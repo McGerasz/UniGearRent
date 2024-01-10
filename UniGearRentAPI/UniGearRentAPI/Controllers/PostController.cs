@@ -24,33 +24,38 @@ public class PostController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("byUser/{user}")]
-    public IActionResult GetByUsername([FromRoute]string user)
+    [HttpGet("byName/{name}")]
+    public IActionResult GetByUsername([FromRoute]string name)
     {
         _logger.LogInformation("Beginning operation");
         List<Post> postList = new List<Post>();
-        string userId = "";
-        try
+        _logger.LogInformation("Retrieving ids of matching users...");
+        var ids = _idService.GetIdsContainingName(name);
+        _logger.LogInformation("Ids retrieved");
+        foreach (var id in ids)
         {
-            _logger.LogInformation("Retrieving user id...");
-            userId = _idService.GetId(user);
+            foreach (var carPost in _carRepository.GetAll())
+            {
+                if(carPost.PosterId == id)
+                {
+                    carPost.LessorDetails = null;
+                    postList.Add(carPost);
+                }
+            }
+            foreach (var trailerPost in _trailerRepository.GetAll())
+            {
+                if(trailerPost.PosterId == id)
+                {
+                    trailerPost.LessorDetails = null;
+                    postList.Add(trailerPost);
+                }
+            }
         }
-        catch
+
+        foreach (var post in postList)
         {
-            _logger.LogError("User was not found in the database");
-            return BadRequest($"No user with the username: {user} was found");
+            _logger.LogInformation(post.Name);
         }
-        _logger.LogInformation("Retrieving the user's car posts...");
-        foreach (var carPost in _carRepository.GetAll())
-        {
-            if(carPost.PosterId == userId) postList.Add(carPost);
-        }
-        _logger.LogInformation("Retrieving user's trailer posts...");
-        foreach (var trailerPost in _trailerRepository.GetAll())
-        {
-            if(trailerPost.PosterId == userId) postList.Add(trailerPost);
-        }
-        _logger.LogInformation("Operation successful");
         return Ok(postList);
     }
 
@@ -62,7 +67,7 @@ public class PostController : ControllerBase
         _logger.LogInformation("Retrieving car posts on the specified location...");
         foreach (var carPost in _carRepository.GetAll())
         {
-            if(carPost.Location == location) postList.Add(carPost);
+            if(carPost.Location.Contains(location)) postList.Add(carPost);
         }
         _logger.LogInformation("Retrieving trailer posts on the specified location...");
         foreach (var trailerPost in _trailerRepository.GetAll())
