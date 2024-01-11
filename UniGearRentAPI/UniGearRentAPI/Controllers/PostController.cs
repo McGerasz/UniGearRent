@@ -67,7 +67,7 @@ public class PostController : ControllerBase
         _logger.LogInformation("Retrieving car posts on the specified location...");
         foreach (var carPost in _carRepository.GetAll())
         {
-            if(carPost.Location.Contains(location)) postList.Add(carPost);
+            if(carPost.Location.ToLower().Contains(location.ToLower())) postList.Add(carPost);
         }
         _logger.LogInformation("Retrieving trailer posts on the specified location...");
         foreach (var trailerPost in _trailerRepository.GetAll())
