@@ -9,7 +9,7 @@ const SearchPage: React.FC = () => {
     return(
     <Container className="justify-content-md-center w-75 mt-5">
         <PostSearchComponent searchDataSetter={setSearchData}/>
-        {searchData.length > 0 ? <PostCardsComponent searchData={searchData}/> : <>bar</>}
+        {searchData.length > 0 ? <PostCardsComponent searchData={searchData}/> : <></>}
     </Container>)
 }
 export default SearchPage
