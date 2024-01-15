@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
@@ -46,7 +47,7 @@ public class TrailerController : ControllerBase
         return Ok(trailerPost);
     }
 
-    [HttpPost]
+    [HttpPost, Authorize(Roles = "Lessor, Admin")]
     public IActionResult Post([FromBody] TrailerPost trailerPost, [Required]string userName)
     {
         _logger.LogInformation("Beginning operation");
@@ -57,7 +58,7 @@ public class TrailerController : ControllerBase
         return Ok(_trailerRepository.GetById(trailerPost.Id));
     }
 
-    [HttpDelete("{id:int}")]
+    [HttpDelete("{id:int}"), Authorize(Roles = "Lessor, Admin")]
     public IActionResult Delete(int id)
     {
         _logger.LogInformation("Beginning operation");
@@ -66,7 +67,7 @@ public class TrailerController : ControllerBase
         return Ok();
     }
 
-    [HttpPatch("{id:int}")]
+    [HttpPatch("{id:int}"), Authorize(Roles = "Lessor, Admin")]
     public IActionResult Patch([Required] int id, string? name, string? location,
         string? posterId, string? description, int? hourlyPrice, 
         int? dailyPrice, int? weeklyPrice, int? securityDeposit,
@@ -96,7 +97,7 @@ public class TrailerController : ControllerBase
 
     }
 
-    [HttpPut]
+    [HttpPut, Authorize(Roles = "Lessor, Admin")]
     public IActionResult Put([FromBody] TrailerPost post)
     {
         _logger.LogInformation("Beginning operation");

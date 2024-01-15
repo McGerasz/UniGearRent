@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UniGearRentAPIIntegrationTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc99be2103c70b54de9f05c47e1bfa70dcc2e31e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa4e893506b995cd8d83b6114b45f3cbb3eb944c")]
 [assembly: System.Reflection.AssemblyProductAttribute("UniGearRentAPIIntegrationTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UniGearRentAPIIntegrationTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
