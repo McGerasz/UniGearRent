@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/js/bootstrap.bundle';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
