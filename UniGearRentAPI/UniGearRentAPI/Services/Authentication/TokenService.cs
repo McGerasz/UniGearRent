@@ -26,8 +26,8 @@ public class TokenService : ITokenService
     private JwtSecurityToken CreateJwtToken(List<Claim> claims, SigningCredentials credentials,
         DateTime expiration) =>
         new(
-            Environment.GetEnvironmentVariable(""),
-            Environment.GetEnvironmentVariable("WQUIZZ_JWT_VALID_AUDIENCE"),
+            Environment.GetEnvironmentVariable("ASPNETCORE_VALIDISSUER"),
+            Environment.GetEnvironmentVariable("ASPNETCORE_VALIDAUDIENCE"),
             claims,
             expires: expiration,
             signingCredentials: credentials
