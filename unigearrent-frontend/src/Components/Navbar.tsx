@@ -42,8 +42,8 @@ const Navbar: React.FC = () => {
                         Profile
                     </Link></NavItem>
                         {profile.Type === RegistrationType.Lessor.valueOf() ? (<NavItem>
-                            <Link to="/createpost" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
-                            Create post
+                            <Link to="/myposts" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
+                            My posts
                         </Link></NavItem>) : 
                         (<NavItem><Link to="/favourites" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
                             My favourites

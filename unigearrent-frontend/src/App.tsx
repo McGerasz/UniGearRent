@@ -11,6 +11,7 @@ import RegisterPage from './Pages/RegisterPage';
 import { UserProfileProvider, useUserProfile } from './Utils/UserProfileContextProvider';
 import Cookies from 'universal-cookie';
 import SearchPage from './Pages/SearchPage';
+import MyPostsPage from './Pages/MyPostsPage';
 
 function App() {
   let cookies = new Cookies();
@@ -38,6 +39,9 @@ function App() {
         },{
           path: "/search",
           element: <SearchPage />
+        },{
+          path: "/myposts",
+          element: <MyPostsPage />
         }
       ]
     }
