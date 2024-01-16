@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { ReactNode } from "react";
 
 const PostCardsComponent: React.FC<{searchData: Array<PostCardData>}> = (props) => {
+    const navigate = useNavigate();
     const ClickHandler: (id: number) => void = (id) => {
-        useNavigate()(`/Post/${id}`);
+        navigate(`/Post/${id}`);
     }
     return(
         <Row sm={1} md={2} lg={4}>{props.searchData.map((element: PostCardData) => {
