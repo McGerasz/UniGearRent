@@ -25,7 +25,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("byName/{name}")]
-    public IActionResult GetByUsername([FromRoute]string name)
+    public IActionResult GetByName([FromRoute]string name)
     {
         _logger.LogInformation("Beginning operation");
         List<Post> postList = new List<Post>();
@@ -74,6 +74,36 @@ public class PostController : ControllerBase
         {
             if(trailerPost.Location == location) postList.Add(trailerPost);
         }
+        _logger.LogInformation("Operation successful");
+        return Ok(postList);
+    }
+    [HttpGet("byUser/{user}")]
+    public IActionResult GetByUsername([FromRoute]string user)
+    {
+        _logger.LogInformation("Beginning operation");
+        List<Post> postList = new List<Post>();
+        string userId = "";
+        try
+        {
+            _logger.LogInformation("Retrieving user id...");
+            userId = _idService.GetId(user);
+        }
+        catch
+        {
+            _logger.LogError("User was not found in the database");
+            return BadRequest($"No user with the username: {user} was found");
+        }
+        _logger.LogInformation("Retrieving the user's car posts...");
+        foreach (var carPost in _carRepository.GetAll())
+        {
+            if(carPost.PosterId == userId) postList.Add(carPost);
+        }
+        _logger.LogInformation("Retrieving user's trailer posts...");
+        foreach (var trailerPost in _trailerRepository.GetAll())
+        {
+            if(trailerPost.PosterId == userId) postList.Add(trailerPost);
+        }
+
         _logger.LogInformation("Operation successful");
         return Ok(postList);
     }
