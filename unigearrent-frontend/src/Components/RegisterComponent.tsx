@@ -1,7 +1,3 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import RegisterTypeComponent from './RegisterTypeComponent'
 import { useState } from 'react';
 import { RegistrationType } from '../Models/RegistrationType';
