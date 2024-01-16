@@ -1,6 +1,5 @@
 import { Button, Container } from "react-bootstrap"
 import { useEffect, useState } from "react"
-import PostSearchComponent from "../Components/PostSearchComponent"
 import { PostCardData } from "../Models/PostCardData";
 import PostCardsComponent from "../Components/PostCardsComponent";
 import BackendURL from "../Utils/BackendURL";

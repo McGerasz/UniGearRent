@@ -1,7 +1,6 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { PostCardData } from "../Models/PostCardData";
 import { useNavigate } from "react-router-dom";
-import { ReactNode } from "react";
 
 const PostCardsComponent: React.FC<{searchData: Array<PostCardData>}> = (props) => {
     const navigate = useNavigate();

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import "bootstrap/js/src/collapse.js";
 import BootstrapNavbar from 'react-bootstrap/Navbar';
-import { Button, Col, Container, Nav, NavItem, NavbarBrand, NavbarCollapse, NavbarText, NavbarToggle, Row } from 'react-bootstrap';
-import {Link, NavLink} from 'react-router-dom';
+import { Container, Nav, NavItem, NavbarBrand, NavbarCollapse, NavbarToggle } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import { useUserProfile } from '../Utils/UserProfileContextProvider';
 import Cookies from 'universal-cookie';
 import { RegistrationType } from '../Models/RegistrationType';
