@@ -1,7 +1,7 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
-import { Link, NavigateFunction, useNavigate } from "react-router-dom"
+import { NavigateFunction, useNavigate } from "react-router-dom"
 import PhoneNumberValidator from "../Utils/PhoneNumberValidator"
-import { FormEvent, SyntheticEvent, useState } from "react"
+import { useState } from "react"
 import PasswordValidator from "../Utils/PasswordValidator"
 import BackendURL from "../Utils/BackendURL"
 
