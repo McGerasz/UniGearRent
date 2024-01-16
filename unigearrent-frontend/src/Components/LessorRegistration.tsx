@@ -1,10 +1,8 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap"
-import { Link, NavigateFunction, useNavigate } from "react-router-dom"
+import { Button, Container, Form, Row } from "react-bootstrap"
+import { NavigateFunction, useNavigate } from "react-router-dom"
 import PhoneNumberValidator from "../Utils/PhoneNumberValidator"
-import { FormEvent, SyntheticEvent, useContext, useState } from "react"
+import { useState } from "react"
 import PasswordValidator from "../Utils/PasswordValidator"
-import { UserProfileProvider, useUserProfile } from "../Utils/UserProfileContextProvider"
-import { UserProfile } from "../Models/UserProfile"
 import BackendURL from "../Utils/BackendURL"
 
 const LessorRegistration: React.FC<{typeSelectedSetter: React.Dispatch<React.SetStateAction<boolean>>}> = (props) => {
