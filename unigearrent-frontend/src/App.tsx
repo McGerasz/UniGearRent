@@ -11,6 +11,7 @@ import { useUserProfile } from './Utils/UserProfileContextProvider';
 import Cookies from 'universal-cookie';
 import SearchPage from './Pages/SearchPage';
 import MyPostsPage from './Pages/MyPostsPage';
+import CreatePostPage from './Pages/CreatePostPage';
 
 function App() {
   let cookies = new Cookies();
@@ -41,6 +42,9 @@ function App() {
         },{
           path: "/myposts",
           element: <MyPostsPage />
+        },{
+          path: "/createpost",
+          element: <CreatePostPage />
         }
       ]
     }
