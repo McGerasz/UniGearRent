@@ -56,7 +56,53 @@ const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
             };
                 carHandler();
                 break;
-            
+            case PostType.Trailer.valueOf():
+                const trailerHandler: () => void = async () => 
+                {
+                    const target = e.target as typeof e.target & {
+                        name: {value: string};
+                        location: {value: string};
+                        description: {value: string};
+                        hourly: {value: number};
+                        daily: {value: number};
+                        weekly: {value: number};
+                        securityDeposit: {value: number}
+                        width: {value: number},
+                        length: {value: number}
+                    }
+                    const emptiesArray: Array<string> = new Array<string>()
+                    if(target.name.value === "") emptiesArray.push("name");
+                    if(target.location.value === "") emptiesArray.push("location");
+                    if(target.description.value === "") emptiesArray.push("description");
+                    if(emptiesArray.length > 0){
+                        alert("The following fields cannot be empty: " + emptiesArray.join(", "));
+                        return;
+                    }
+                    const requestData = {
+                        name: target.name.value,
+                        location: target.location.value,
+                        description: target.description.value,
+                        hourly: target.hourly.value.toString() != "" ? target.hourly.value : null,
+                        daily: target.daily.value.toString() != "" ? target.daily.value : null,
+                        weekly: target.weekly.value.toString() != "" ? target.weekly.value : null,
+                        securityDeposit: target.securityDeposit.value.toString() != "" ? target.securityDeposit.value : null,
+                        width: target.width.value.toString() != "" ? target.width.value : null,
+                        length: target.length.value.toString() != "" ? target.length.value : null,
+                        posterId: ""
+                    }
+                    let response = await fetch(BackendURL + "Trailer/?userName=" + profile?.Username, {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                            "Content-type": "application/json",
+                            "Authorization": "Bearer " + profile?.Token
+                        },
+                        body: JSON.stringify(requestData)
+                    }).then(res => res.json());
+                    console.log(response);
+                };
+                trailerHandler()
+                break;
         }
     }
     
