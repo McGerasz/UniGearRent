@@ -28,7 +28,7 @@ public class PostController : ControllerBase
     public IActionResult GetByName([FromRoute]string name)
     {
         _logger.LogInformation("Beginning operation");
-        List<Post> postList = new List<Post>();
+        List<object> postList = new List<object>();
         _logger.LogInformation("Retrieving ids of matching users...");
         var ids = _idService.GetIdsContainingName(name);
         _logger.LogInformation("Ids retrieved");
@@ -51,11 +51,6 @@ public class PostController : ControllerBase
                 }
             }
         }
-
-        foreach (var post in postList)
-        {
-            _logger.LogInformation(post.Name);
-        }
         return Ok(postList);
     }
 
@@ -63,7 +58,7 @@ public class PostController : ControllerBase
     public IActionResult GetByLocation([FromRoute] string location)
     {
         _logger.LogInformation("Beginning operation");
-        List<Post> postList = new List<Post>();
+        List<object> postList = new List<object>();
         _logger.LogInformation("Retrieving car posts on the specified location...");
         foreach (var carPost in _carRepository.GetAll())
         {
@@ -81,7 +76,7 @@ public class PostController : ControllerBase
     public IActionResult GetByUsername([FromRoute]string user)
     {
         _logger.LogInformation("Beginning operation");
-        List<Post> postList = new List<Post>();
+        List<object> postList = new List<object>();
         string userId = "";
         try
         {
