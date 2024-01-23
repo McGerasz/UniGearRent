@@ -2,10 +2,10 @@ import { Card, Col, Row } from "react-bootstrap";
 import { PostCardData } from "../Models/PostCardData";
 import { useNavigate } from "react-router-dom";
 
-const PostCardsComponent: React.FC<{searchData: Array<PostCardData>}> = (props) => {
+const PostCardsComponent: React.FC<{searchData: Array<PostCardData>, myPost: boolean}> = (props) => {
     const navigate = useNavigate();
     const ClickHandler: (id: number) => void = (id) => {
-        navigate(`/Post/${id}`);
+        navigate(props.myPost ? `/mypost/${id}` : `/Post/${id}`);
     }
     return(
         <Row sm={1} md={2} lg={4}>{props.searchData.map((element: PostCardData) => {

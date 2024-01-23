@@ -28,7 +28,7 @@ const MyPostsPage: React.FC = () => {
         <Container className="w-100 d-flex justify-content-center mb-5">
             <Button className="btn-dark w-75" onClick={ClickHandler}>Create post</Button>
         </Container>
-        {searchData.length > 0 ? <PostCardsComponent searchData={searchData}/> : <></>}
+        {searchData.length > 0 ? <PostCardsComponent searchData={searchData} myPost={true}/> : <></>}
     </Container>)
 }
 export default MyPostsPage;
