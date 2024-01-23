@@ -2,7 +2,7 @@ import React from 'react';
 import "bootstrap/js/src/collapse.js";
 import BootstrapNavbar from 'react-bootstrap/Navbar';
 import { Container, Nav, NavItem, NavbarBrand, NavbarCollapse, NavbarToggle } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { useUserProfile } from '../Utils/UserProfileContextProvider';
 import Cookies from 'universal-cookie';
 import { RegistrationType } from '../Models/RegistrationType';
@@ -10,10 +10,12 @@ import { RegistrationType } from '../Models/RegistrationType';
 const Navbar: React.FC = () => {
     let cookies = new Cookies();
     let profile = useUserProfile().userProfile;
+    const navigate = useNavigate();
     const profileSetter = useUserProfile().setUserProfile;
     const LogoutHandler: () => void = () => {
         profileSetter(null);
-        cookies.remove("profile")
+        cookies.remove("profile");
+        navigate("/");
     }
     return(
     <BootstrapNavbar collapseOnSelect style={{backgroundColor: "#d9b99b"}} data-bs-theme="light" expand="xl" >
