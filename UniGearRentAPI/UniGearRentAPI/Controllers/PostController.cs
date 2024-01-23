@@ -105,16 +105,21 @@ public class PostController : ControllerBase
     [HttpGet("/Post/{id}")]
     public IActionResult GetPost([FromRoute] int id)
     {
+        _logger.LogInformation("Beginning operation");
+        _logger.LogInformation("Searching for post in car repository...");
         object? post = _carRepository.GetAll().FirstOrDefault(obj => obj.Id == id);
         if (post is null)
         {
+            _logger.LogInformation("Post was not found in car repository");
+            _logger.LogInformation("Searching for post in trailer repository...");
             post = _trailerRepository.GetAll().FirstOrDefault(obj => obj.Id == id);
         }
-
         if (post is null)
         {
+            _logger.LogInformation("The post was not found in the database");
             return NotFound("No post with the provided id was found");
         }
+        _logger.LogInformation("Operation successful");
         return Ok(post);
     }
 }
