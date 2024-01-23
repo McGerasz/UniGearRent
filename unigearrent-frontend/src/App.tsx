@@ -12,6 +12,7 @@ import Cookies from 'universal-cookie';
 import SearchPage from './Pages/SearchPage';
 import MyPostsPage from './Pages/MyPostsPage';
 import CreatePostPage from './Pages/CreatePostPage';
+import MyPostPage from './Pages/MyPostPage';
 
 function App() {
   let cookies = new Cookies();
@@ -45,6 +46,9 @@ function App() {
         },{
           path: "/createpost",
           element: <CreatePostPage />
+        },{
+          path: "/mypost/:id",
+          element: <MyPostPage />
         }
       ]
     }
