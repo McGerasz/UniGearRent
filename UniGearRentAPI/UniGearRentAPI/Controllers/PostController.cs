@@ -102,7 +102,7 @@ public class PostController : ControllerBase
         _logger.LogInformation("Operation successful");
         return Ok(postList);
     }
-    [HttpGet("/Post/{id}")]
+    [HttpGet("{id}")]
     public IActionResult GetPost([FromRoute] int id)
     {
         _logger.LogInformation("Beginning operation");
@@ -114,11 +114,13 @@ public class PostController : ControllerBase
             _logger.LogInformation("Searching for post in trailer repository...");
             post = _trailerRepository.GetAll().FirstOrDefault(obj => obj.Id == id);
         }
+
         if (post is null)
         {
             _logger.LogInformation("The post was not found in the database");
             return NotFound("No post with the provided id was found");
         }
+
         _logger.LogInformation("Operation successful");
         return Ok(post);
     }
