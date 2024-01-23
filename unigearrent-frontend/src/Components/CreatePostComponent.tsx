@@ -2,10 +2,12 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { PostType } from "../Models/PostType";
 import BackendURL from "../Utils/BackendURL";
 import { useUserProfile } from "../Utils/UserProfileContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
     let canDeliver: boolean = false;
     const profile = useUserProfile().userProfile;
+    const navigate = useNavigate();
     const SubmitHandler: (e: React.FormEvent) => void = (e) => {
         e.preventDefault();
         switch(props.postType){
@@ -22,6 +24,7 @@ const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
                     securityDeposit: {value: number}
                     numberOfSeats: {value: number },
                 }
+                console.log(target.hourly.value.toString())
                 const emptiesArray: Array<string> = new Array<string>()
                 if(target.name.value === "") emptiesArray.push("name");
                 if(target.location.value === "") emptiesArray.push("location");
@@ -35,9 +38,9 @@ const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
                     name: target.name.value,
                     location: target.location.value,
                     description: target.description.value,
-                    hourly: target.hourly.value.toString() != "" ? target.hourly.value : null,
-                    daily: target.daily.value.toString() != "" ? target.daily.value : null,
-                    weekly: target.weekly.value.toString() != "" ? target.weekly.value : null,
+                    hourlyPrice: target.hourly.value.toString() != "" ? target.hourly.value : null,
+                    dailyPrice: target.daily.value.toString() != "" ? target.daily.value : null,
+                    weeklyPrice: target.weekly.value.toString() != "" ? target.weekly.value : null,
                     securityDeposit: target.securityDeposit.value.toString() != "" ? target.securityDeposit.value : null,
                     numberOfSeats: target.numberOfSeats.value,
                     canDeliverToYou: canDeliver,
@@ -52,7 +55,6 @@ const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
                     },
                     body: JSON.stringify(requestData)
                 }).then(res => res.json());
-                console.log(response);
             };
                 carHandler();
                 break;
@@ -82,9 +84,9 @@ const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
                         name: target.name.value,
                         location: target.location.value,
                         description: target.description.value,
-                        hourly: target.hourly.value.toString() != "" ? target.hourly.value : null,
-                        daily: target.daily.value.toString() != "" ? target.daily.value : null,
-                        weekly: target.weekly.value.toString() != "" ? target.weekly.value : null,
+                        hourlyPrice: target.hourly.value.toString() != "" ? target.hourly.value : null,
+                        dailyPrice: target.daily.value.toString() != "" ? target.daily.value : null,
+                        weeklyPrice: target.weekly.value.toString() != "" ? target.weekly.value : null,
                         securityDeposit: target.securityDeposit.value.toString() != "" ? target.securityDeposit.value : null,
                         width: target.width.value.toString() != "" ? target.width.value : null,
                         length: target.length.value.toString() != "" ? target.length.value : null,
@@ -99,11 +101,12 @@ const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
                         },
                         body: JSON.stringify(requestData)
                     }).then(res => res.json());
-                    console.log(response);
                 };
                 trailerHandler()
                 break;
         }
+        alert("Post successfully created");
+        navigate("/myposts");
     }
     
     return (<Container className="w-75"><Form onSubmit={SubmitHandler}>
@@ -169,7 +172,7 @@ const CreatePostComponent: React.FC<{postType: PostType}> = (props) => {
         </Row>
         </>}
         <Row className="mx-auto w-50 mb-3">
-            <Button className="btn-dark" type="submit">Search</Button>
+            <Button className="btn-dark" type="submit">Create post</Button>
         </Row>
     </Form></Container>)
 }
