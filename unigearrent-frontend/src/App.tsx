@@ -13,6 +13,7 @@ import SearchPage from './Pages/SearchPage';
 import MyPostsPage from './Pages/MyPostsPage';
 import CreatePostPage from './Pages/CreatePostPage';
 import MyPostPage from './Pages/MyPostPage';
+import EditPostPage from './Pages/EditPostPage';
 
 function App() {
   let cookies = new Cookies();
@@ -49,6 +50,10 @@ function App() {
         },{
           path: "/mypost/:id",
           element: <MyPostPage />
+        },
+        {
+          path: "/editpost/:id",
+          element: <EditPostPage />
         }
       ]
     }
