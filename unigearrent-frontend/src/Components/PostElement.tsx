@@ -26,6 +26,9 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType}> = (props) =
         }
         return;
     }
+    const editHandler: () => void = () => {
+        navigate("/editpost/" + props.PostData["id"])
+    }
     return(
     <Container>
     <Container className="mt-3" style={{backgroundColor:"#B39377"}}>
@@ -45,7 +48,7 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType}> = (props) =
     </Container>
     <Row className="mt-3">
         <Col className="d-flex justify-content-center">
-            <Button>Edit post</Button>
+            <Button onClick={editHandler}>Edit post</Button>
         </Col>
         <Col className="d-flex justify-content-center">
             <Button variant="danger" onClick={deleteHandler}>Delete post</Button>
