@@ -5,7 +5,7 @@ import BackendURL from "../Utils/BackendURL";
 import { useNavigate } from "react-router-dom";
 import { useUserProfile } from "../Utils/UserProfileContextProvider";
 
-const PostElement: React.FC<{PostData: any, PostDataType: PostType}> = (props) => {
+const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: boolean}> = (props) => {
     const profile = useUserProfile().userProfile;
     const navigate = useNavigate();
     const priceVisualizer: () => JSX.Element= () => {
@@ -46,14 +46,14 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType}> = (props) =
             {props.PostData["length"] ? <Col>Length: {props.PostData["length"]}</Col> : <></>}
          </Row>}
     </Container>
-    <Row className="mt-3">
+    {props.MyPost ? <Row className="mt-3">
         <Col className="d-flex justify-content-center">
             <Button onClick={editHandler}>Edit post</Button>
         </Col>
         <Col className="d-flex justify-content-center">
             <Button variant="danger" onClick={deleteHandler}>Delete post</Button>
         </Col>
-    </Row>
+    </Row> : <></>}
     </Container>)
 }
 export default PostElement;

@@ -16,6 +16,6 @@ const MyPostComponent: React.FC<{id: number}> = (props) => {
     useEffect(() => {
         fetcher();
     }, [])
-    return (PostData ? (<PostElement PostData={PostData} PostDataType={PostDataType}/>) : <Container fluid><h1>Loading data...</h1></Container>)
+    return (PostData ? (<PostElement PostData={PostData} PostDataType={PostDataType} MyPost={true}/>) : <Container fluid><h1>Loading data...</h1></Container>)
 }
 export default MyPostComponent;
