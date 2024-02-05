@@ -56,7 +56,7 @@ function App() {
           path: "/editpost/:id",
           element: <EditPostPage />
         },{
-          path:"/post/:id",
+          path: "/post/:id",
           element: <PostPage />
         }
       ]
