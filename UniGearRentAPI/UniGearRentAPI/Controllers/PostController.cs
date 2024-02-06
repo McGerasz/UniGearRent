@@ -1,5 +1,7 @@
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using UniGearRentAPI.DatabaseServices;
 using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
 using UniGearRentAPI.Services.Authentication;
@@ -14,14 +16,16 @@ public class PostController : ControllerBase
     private readonly IRepository<TrailerPost> _trailerRepository;
     private readonly IIdService _idService;
     private readonly ILogger<PostController> _logger;
+    private readonly UniGearRentAPIDbContext _dbContext;
 
     public PostController(IRepository<CarPost> carRepository, IRepository<TrailerPost> trailerRepository,
-        IIdService idService, ILogger<PostController> logger)
+        IIdService idService, ILogger<PostController> logger, UniGearRentAPIDbContext dbContext)
     {
         _carRepository = carRepository;
         _trailerRepository = trailerRepository;
         _idService = idService;
         _logger = logger;
+        _dbContext = dbContext;
     }
 
     [HttpGet("byName/{name}")]
@@ -123,5 +127,31 @@ public class PostController : ControllerBase
 
         _logger.LogInformation("Operation successful");
         return Ok(post);
+    }
+
+    [HttpGet("lessorDetails/{id}")]
+    public IActionResult getLessorDetails([Required] int id)
+    {
+        _logger.LogInformation("Beginning operation");
+        _logger.LogInformation("Searching for post in car repository...");
+        Post? post = _carRepository.GetAll().FirstOrDefault(obj => obj.Id == id);
+        if (post is null)
+        {
+            _logger.LogInformation("Post was not found in car repository");
+            _logger.LogInformation("Searching for post in trailer repository...");
+            post = _trailerRepository.GetAll().FirstOrDefault(obj => obj.Id == id);
+        }
+
+        if (post is null)
+        {
+            _logger.LogInformation("The post was not found in the database");
+            return NotFound("No post with the provided id was found");
+        }
+
+        LessorDetails details =
+            _dbContext.LessorsDetails.First(lessorDetails => lessorDetails.PosterId == post.PosterId);
+        details.Posts = null;
+        _logger.LogInformation("Operation successful");
+        return Ok(details);
     }
 }
