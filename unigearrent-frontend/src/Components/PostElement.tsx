@@ -5,7 +5,7 @@ import BackendURL from "../Utils/BackendURL";
 import { useNavigate } from "react-router-dom";
 import { useUserProfile } from "../Utils/UserProfileContextProvider";
 
-const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: boolean}> = (props) => {
+const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: boolean, PosterName: string}> = (props) => {
     const profile = useUserProfile().userProfile;
     const navigate = useNavigate();
     const priceVisualizer: () => JSX.Element= () => {
@@ -48,6 +48,11 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
             {props.PostData["length"] ? <Col>Length: {props.PostData["length"]}</Col> : <></>}
          </Row>
          </ListGroupItem>}
+         <ListGroupItem>
+            <CardText className="mt-2 mb-2">
+                This post was created by: {props.PosterName}
+            </CardText>
+        </ListGroupItem>
          </ListGroup>
          </CardBody>
     </Card>
