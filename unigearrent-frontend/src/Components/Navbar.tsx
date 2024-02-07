@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
                             <Link to="/myposts" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
                             My posts
                         </Link></NavItem>) : 
-                        (<NavItem><Link to="/favourites" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
+                        (<NavItem><Link to="/myfavourites" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
                             My favourites
                         </Link></NavItem>)}
                         <NavItem  className="link-dark link-offset-2" style={{cursor:"pointer"}} onClick={LogoutHandler}>Logout</NavItem>
