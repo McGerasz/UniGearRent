@@ -1,6 +1,7 @@
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UniGearRentAPI.DatabaseServices;
 using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
@@ -153,5 +154,26 @@ public class PostController : ControllerBase
         details.Posts = null;
         _logger.LogInformation("Operation successful");
         return Ok(details);
+    }
+
+    [HttpPost("favourite")]
+    public IActionResult PostFavourite([Required] string userName, [Required] int postId)
+    {
+        var id = _idService.GetId(userName);
+        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
+        Post? post = (Post)_carRepository.GetById(postId) ?? (Post)_trailerRepository.GetById(postId);
+        if (post is not Post) return NotFound();
+            post = _carRepository.GetById(postId);   
+            details.FavouriteIDs.Add(post);
+            _dbContext.Update(details);
+            _dbContext.SaveChanges();
+            return Ok("OK");
+    }
+    [HttpGet("getFavourites/{userName}")]
+    public IActionResult GetFavourites(string userName)
+    {
+        var id = _idService.GetId(userName);
+        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
+        return Ok(details.FavouriteIDs);
     }
 }

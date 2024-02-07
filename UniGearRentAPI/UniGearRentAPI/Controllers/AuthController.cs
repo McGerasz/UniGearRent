@@ -43,7 +43,7 @@ public class AuthController : ControllerBase
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
-            PosterId = result.UserId
+            Id = result.UserId
         });
         await _dbContext.SaveChangesAsync();
         _logger.LogInformation("Operation successful");
