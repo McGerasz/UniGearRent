@@ -176,4 +176,15 @@ public class PostController : ControllerBase
         var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
         return Ok(details.FavouriteIDs);
     }
+    [HttpDelete("delFavourites")]
+    public IActionResult DelFavourites([Required]string userName, [Required]int postId)
+    {
+        var id = _idService.GetId(userName);
+        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
+        Post? post = (Post)_carRepository.GetById(postId) ?? (Post)_trailerRepository.GetById(postId);
+        details.FavouriteIDs.Remove(post);
+        _dbContext.Update(details);
+        _dbContext.SaveChanges();
+        return Ok("Deleted");
+    }
 }
