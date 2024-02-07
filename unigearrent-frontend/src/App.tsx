@@ -15,6 +15,7 @@ import CreatePostPage from './Pages/CreatePostPage';
 import MyPostPage from './Pages/MyPostPage';
 import EditPostPage from './Pages/EditPostPage';
 import PostPage from './Pages/PostPage';
+import MyFavouritesPage from './Pages/MyFavouritesPage';
 
 function App() {
   let cookies = new Cookies();
@@ -58,6 +59,9 @@ function App() {
         },{
           path: "/post/:id",
           element: <PostPage />
+        },{
+          path: "/myfavourites",
+          element: <MyFavouritesPage />
         }
       ]
     }
