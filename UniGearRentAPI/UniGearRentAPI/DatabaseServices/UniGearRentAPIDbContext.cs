@@ -36,5 +36,7 @@ public class UniGearRentAPIDbContext : IdentityDbContext<IdentityUser, IdentityR
         builder.Entity<LessorDetails>().HasMany(e => e.Posts)
             .WithOne(e => e.LessorDetails)
             .HasForeignKey(e => e.PosterId);
+        builder.Entity<UserDetails>().HasMany(e => e.FavouriteIDs)
+            .WithMany(e => e.Users);
     }
 }
