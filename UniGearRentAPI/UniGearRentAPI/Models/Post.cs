@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
 
 namespace UniGearRentAPI.Models;
 
@@ -19,4 +19,6 @@ public abstract class Post
     public int? DailyPrice { get; set; }
     public int? WeeklyPrice { get; set; }
     public int? SecurityDeposit { get; set; }
+    [JsonIgnore]
+    public List<UserDetails> Users { get; } = new ();
 }
