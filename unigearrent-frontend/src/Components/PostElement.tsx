@@ -4,6 +4,7 @@ import { Button, Card, CardBody, CardHeader, CardText, Col, Container, ListGroup
 import BackendURL from "../Utils/BackendURL";
 import { useNavigate } from "react-router-dom";
 import { useUserProfile } from "../Utils/UserProfileContextProvider";
+import { RegistrationType } from "../Models/RegistrationType";
 
 const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: boolean, PosterName: string}> = (props) => {
     const profile = useUserProfile().userProfile;
@@ -28,6 +29,13 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
     }
     const editHandler: () => void = () => {
         navigate("/editpost/" + props.PostData["id"])
+    }
+    const favouriteHandler: () => void = async () => {
+        await fetch(BackendURL + "Post/favourite?userName=" + profile?.Username + "&postId=" + props.PostData["id"], {
+            method: "POST",
+            mode: "cors"
+        })
+        alert("Post added to favourites");
     }
     return(
     <Container>
@@ -64,6 +72,9 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
             <Button variant="danger" onClick={deleteHandler}>Delete post</Button>
         </Col>
     </Row> : <></>}
+    {
+        profile?.Type === RegistrationType.User ? <Container className="mt-3 d-flex justify-content-end"><Button onClick={favouriteHandler}>Add to favourites</Button></Container> : <></>
+    }
     </Container>)
 }
 export default PostElement;
