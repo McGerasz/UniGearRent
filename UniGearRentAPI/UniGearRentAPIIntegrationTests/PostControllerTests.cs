@@ -109,4 +109,13 @@ public class PostControllerTests
         var processedResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString);
         Assert.That(processedResponse["id"], Is.EqualTo("7"));
     }
+
+    [Test]
+    public async Task GetLessorDetailsTest()
+    {
+        var response = await _client.GetAsync($"api/Post/lessorDetails/7");
+        string responseString = await response.Content.ReadAsStringAsync();
+        var processedResponse = JsonConvert.DeserializeObject<LessorDetails>(responseString);
+        Assert.That(processedResponse.Name, Is.EqualTo("TESTNAME1"));
+    }
 }
