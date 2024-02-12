@@ -72,7 +72,7 @@ public class PostController : ControllerBase
         _logger.LogInformation("Retrieving trailer posts on the specified location...");
         foreach (var trailerPost in _trailerRepository.GetAll())
         {
-            if(trailerPost.Location == location) postList.Add(trailerPost);
+            if(trailerPost.Location.ToLower().Contains(location.ToLower())) postList.Add(trailerPost);
         }
         _logger.LogInformation("Operation successful");
         return Ok(postList);
@@ -181,7 +181,7 @@ public class PostController : ControllerBase
     {
         var id = _idService.GetId(userName);
         var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
-        Post? post = (Post)_carRepository.GetById(postId) ?? (Post)_trailerRepository.GetById(postId);
+        Post? post = (Post)(_carRepository.GetById(postId) ?? (Post)_trailerRepository.GetById(postId));
         details.FavouriteIDs.Remove(post);
         _dbContext.Update(details);
         _dbContext.SaveChanges();
