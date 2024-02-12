@@ -100,4 +100,13 @@ public class PostControllerTests
         var processedPosts = JsonConvert.DeserializeObject<ICollection<Dictionary<string, string>>>(responseString);
         Assert.That(processedPosts.All(x => x["location"] == "Budapest"));
     }
+
+    [Test]
+    public async Task GetTest()
+    {
+        var getResponse = await _client.GetAsync($"/api/Post/7");
+        string responseString = await getResponse.Content.ReadAsStringAsync();
+        var processedResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString);
+        Assert.That(processedResponse["id"], Is.EqualTo("7"));
+    }
 }
