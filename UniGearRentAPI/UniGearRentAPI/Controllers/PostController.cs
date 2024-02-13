@@ -206,9 +206,19 @@ public class PostController : ControllerBase
     [HttpDelete("delFavourites")]
     public IActionResult DelFavourites([Required]string userName, [Required]int postId)
     {
-        var id = _idService.GetId(userName);
-        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
+        string id;
+        try
+        {
+            id = _idService.GetId(userName); 
+        }
+        catch
+        {
+            return NotFound("The user was not found in the database");
+        }
+        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).FirstOrDefault(det => det.Id == id);
+        if (details is null) return BadRequest("The username provided belongs to a lessor account type");
         Post? post = (Post)(_carRepository.GetById(postId) ?? (Post)_trailerRepository.GetById(postId));
+        if (post is null) return NotFound("The provided post id was not found in the database");
         details.FavouriteIDs.Remove(post);
         _dbContext.Update(details);
         _dbContext.SaveChanges();
