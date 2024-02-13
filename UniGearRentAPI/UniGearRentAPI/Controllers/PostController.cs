@@ -186,16 +186,21 @@ public class PostController : ControllerBase
     [HttpGet("getFavourites/{userName}")]
     public IActionResult GetFavourites(string userName)
     {
+        _logger.LogInformation("Beginning operation");
         string id;
+        _logger.LogInformation("Retrieving user id...");
         try
         {
         id = _idService.GetId(userName);
         }
         catch
         {
+            _logger.LogError("User was not found in the database");
             return NotFound("The username was not found in the database");
         }
-        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
+        _logger.LogInformation("Retrieving user details...");
+        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).FirstOrDefault(det => det.Id == id);
+        if (details is null) return BadRequest("The username provided belongs to a lessor account type");
         return Ok(details.FavouriteIDs);
     }
     [HttpDelete("delFavourites")]
