@@ -201,27 +201,35 @@ public class PostController : ControllerBase
         _logger.LogInformation("Retrieving user details...");
         var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).FirstOrDefault(det => det.Id == id);
         if (details is null) return BadRequest("The username provided belongs to a lessor account type");
+        _logger.LogInformation("Operation successful");
         return Ok(details.FavouriteIDs);
     }
     [HttpDelete("delFavourites")]
     public IActionResult DelFavourites([Required]string userName, [Required]int postId)
     {
+        _logger.LogInformation("Beginning operation");
         string id;
+        _logger.LogInformation("Retrieving user from database...");
         try
         {
             id = _idService.GetId(userName); 
         }
         catch
         {
+            _logger.LogError("User was not found in the database");
             return NotFound("The user was not found in the database");
         }
+        _logger.LogInformation("Retrieving user details...");
         var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).FirstOrDefault(det => det.Id == id);
         if (details is null) return BadRequest("The username provided belongs to a lessor account type");
+        _logger.LogInformation("Retrieving post from database...");
         Post? post = (Post)(_carRepository.GetById(postId) ?? (Post)_trailerRepository.GetById(postId));
         if (post is null) return NotFound("The provided post id was not found in the database");
+        _logger.LogInformation("Updating database...");
         details.FavouriteIDs.Remove(post);
         _dbContext.Update(details);
         _dbContext.SaveChanges();
+        _logger.LogInformation("Operation successful");
         return Ok("Deleted");
     }
 }
