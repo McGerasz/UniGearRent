@@ -204,7 +204,7 @@ public class PostController : ControllerBase
         _logger.LogInformation("Operation successful");
         return Ok(details.FavouriteIDs);
     }
-    [HttpDelete("delFavourites")]
+    [HttpDelete("favourite")]
     public IActionResult DelFavourites([Required]string userName, [Required]int postId)
     {
         _logger.LogInformation("Beginning operation");
