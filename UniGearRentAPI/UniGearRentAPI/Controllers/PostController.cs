@@ -159,15 +159,29 @@ public class PostController : ControllerBase
     [HttpPost("favourite")]
     public IActionResult PostFavourite([Required] string userName, [Required] int postId)
     {
-        var id = _idService.GetId(userName);
+        _logger.LogInformation("Beginning operation");
+        _logger.LogInformation("Retrieving user...");
+        string id;
+        try
+        {
+            id = _idService.GetId(userName);
+        }
+        catch (Exception e)
+        {
+            _logger.LogWarning("The user was not found in the database");
+            return NotFound("The username was not found");
+        }
+        _logger.LogInformation("Retrieving user details...");
         var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
+        _logger.LogInformation("Retrieving post from the database...");
         Post? post = (Post)_carRepository.GetById(postId) ?? (Post)_trailerRepository.GetById(postId);
-        if (post is not Post) return NotFound();
-            post = _carRepository.GetById(postId);   
-            details.FavouriteIDs.Add(post);
-            _dbContext.Update(details);
-            _dbContext.SaveChanges();
-            return Ok("OK");
+        if (post is null) return NotFound("The provided post id was not found in the database");
+        _logger.LogInformation("Updating database...");
+        details.FavouriteIDs.Add(post);
+        _dbContext.Update(details);
+        _dbContext.SaveChanges();
+        _logger.LogInformation("Operation successful");
+        return Ok("OK");
     }
     [HttpGet("getFavourites/{userName}")]
     public IActionResult GetFavourites(string userName)
