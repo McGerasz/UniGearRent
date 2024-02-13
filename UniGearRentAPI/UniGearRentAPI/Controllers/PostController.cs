@@ -186,7 +186,15 @@ public class PostController : ControllerBase
     [HttpGet("getFavourites/{userName}")]
     public IActionResult GetFavourites(string userName)
     {
-        var id = _idService.GetId(userName);
+        string id;
+        try
+        {
+        id = _idService.GetId(userName);
+        }
+        catch
+        {
+            return NotFound("The username was not found in the database");
+        }
         var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).First(det => det.Id == id);
         return Ok(details.FavouriteIDs);
     }
