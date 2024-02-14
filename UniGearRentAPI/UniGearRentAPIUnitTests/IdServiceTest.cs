@@ -37,6 +37,14 @@ public class IdServiceTest
             LockoutEnabled = false,
             UserName = "TESTUSERNAME2"
         });
+        _dbContext.Users.Add(new IdentityUser
+        {
+            AccessFailedCount = 0,
+            EmailConfirmed = true,
+            Id = "IDSERVICETESTID3",
+            LockoutEnabled = false,
+            UserName = "TESTUSERNAME3"
+        });
         _dbContext.LessorsDetails.Add(new LessorDetails
         {
             Name = "TEST1",
@@ -46,6 +54,11 @@ public class IdServiceTest
         {
             Name = "TEST2",
             PosterId = "IDSERVICETEST2",
+        });
+        _dbContext.LessorsDetails.Add(new LessorDetails
+        {
+            Name = "SOMETHING3",
+            PosterId = "IDSERVICETEST3",
         });
         _dbContext.SaveChanges();
     }
