@@ -56,4 +56,10 @@ public class IdServiceTest
         string retrievedId = _idService.GetId("TESTUSERNAME");
         Assert.That(retrievedId, Is.EqualTo("IDSERVICETESTID"));
     }
+    [Test]
+    public void GetIdsContainingNameReturnsTheRightUsers()
+    {
+        string[] retrievedIds = _idService.GetIdsContainingName("test");
+        Assert.That(retrievedIds.Length, Is.EqualTo(2));
+    }
 }
