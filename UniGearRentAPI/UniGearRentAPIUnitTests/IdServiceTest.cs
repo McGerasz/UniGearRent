@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using UniGearRentAPI.DatabaseServices;
+using UniGearRentAPI.Models;
 using UniGearRentAPI.Services.Authentication;
 
 namespace UniGearRentAPIUnitTests;
@@ -36,6 +37,16 @@ public class IdServiceTest
             LockoutEnabled = false,
             UserName = "TESTUSERNAME2"
         });
+        _dbContext.LessorsDetails.Add(new LessorDetails
+        {
+            Name = "TEST1",
+            PosterId = "IDSERVICETEST1",
+        });
+        _dbContext.LessorsDetails.Add(new LessorDetails
+        {
+            Name = "TEST2",
+            PosterId = "IDSERVICETEST2",
+        });
         _dbContext.SaveChanges();
     }
 
@@ -45,6 +56,4 @@ public class IdServiceTest
         string retrievedId = _idService.GetId("TESTUSERNAME");
         Assert.That(retrievedId, Is.EqualTo("IDSERVICETESTID"));
     }
-
-    
 }
