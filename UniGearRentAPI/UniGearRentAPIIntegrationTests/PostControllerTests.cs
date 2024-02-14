@@ -160,4 +160,16 @@ public class PostControllerTests
         var processedPosts = JsonConvert.DeserializeObject<ICollection<Dictionary<string, string>>>(responseString);
         Assert.That(processedPosts.Count, Is.EqualTo(2));
     }
+
+    [Test]
+    public async Task DelFavouriteTest()
+    {
+        {
+            var response1 = await _client.DeleteAsync($"api/Post/favourite?userName=TestUser4&postId=9");
+            var response2 = await _client.GetAsync($"/api/Post/getFavourites/TestUser4");
+            string responseString = await response2.Content.ReadAsStringAsync();
+            var processedPosts = JsonConvert.DeserializeObject<ICollection<Dictionary<string, string>>>(responseString);
+            Assert.That(processedPosts.Count, Is.EqualTo(0));
+        }
+    }
 }
