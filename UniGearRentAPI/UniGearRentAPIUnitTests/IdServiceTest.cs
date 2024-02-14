@@ -28,6 +28,14 @@ public class IdServiceTest
             LockoutEnabled = false,
             UserName = "TESTUSERNAME"
         });
+        _dbContext.Users.Add(new IdentityUser
+        {
+            AccessFailedCount = 0,
+            EmailConfirmed = true,
+            Id = "IDSERVICETESTID2",
+            LockoutEnabled = false,
+            UserName = "TESTUSERNAME2"
+        });
         _dbContext.SaveChanges();
     }
 
@@ -37,4 +45,6 @@ public class IdServiceTest
         string retrievedId = _idService.GetId("TESTUSERNAME");
         Assert.That(retrievedId, Is.EqualTo("IDSERVICETESTID"));
     }
+
+    
 }
