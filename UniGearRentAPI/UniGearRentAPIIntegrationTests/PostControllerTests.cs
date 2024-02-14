@@ -105,6 +105,7 @@ public class PostControllerTests
             LastName = "TESTLASTNAME",
             FavouriteIDs = { (Post) _factory._carRepository.GetById(9) }
         });
+        _factory._testUniGearRentAPIDbContext.SaveChanges();
         _client = _factory.CreateClient();
     }
     [OneTimeTearDown]
@@ -148,5 +149,15 @@ public class PostControllerTests
         string responseString = await response.Content.ReadAsStringAsync();
         var processedResponse = JsonConvert.DeserializeObject<LessorDetails>(responseString);
         Assert.That(processedResponse.Name, Is.EqualTo("TESTNAME1"));
+    }
+
+    [Test]
+    public async Task PostFavouriteTest()
+    {
+        var response1 = await _client.PostAsync($"api/Post/favourite?userName=TestUser3&postId=8", null);
+        var response2 = await _client.GetAsync($"/api/Post/getFavourites/TestUser3");
+        string responseString = await response2.Content.ReadAsStringAsync();
+        var processedPosts = JsonConvert.DeserializeObject<ICollection<Dictionary<string, string>>>(responseString);
+        Assert.That(processedPosts.Count, Is.EqualTo(2));
     }
 }
