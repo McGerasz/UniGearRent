@@ -5,10 +5,21 @@ import BackendURL from "../Utils/BackendURL";
 import { useNavigate } from "react-router-dom";
 import { useUserProfile } from "../Utils/UserProfileContextProvider";
 import { RegistrationType } from "../Models/RegistrationType";
+import { useEffect, useState } from "react";
 
 const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: boolean, PosterName: string}> = (props) => {
+    const [isFavourite, setIsFavourite] = useState<boolean>();
     const profile = useUserProfile().userProfile;
     const navigate = useNavigate();
+    useEffect(() => {
+        if(profile?.Type === RegistrationType.User){
+            isFavouriteFetcher()
+        }
+    }, [])
+    const isFavouriteFetcher: () => void = async () => {
+        await fetch(BackendURL + "Post/isFavourite?userName=" + profile?.Username + "&Id=" + props.PostData["id"])
+        .then(res => res.json()).then(json => setIsFavourite(json));
+    }
     const priceVisualizer: () => JSX.Element= () => {
         const priceArr = [props.PostData["hourlyPrice"],props.PostData["dailyPrice"],props.PostData["weeklyPrice"], props.PostData["securityDeposit"]];
         if(!priceArr.some(element => element !== null)) return <></>
@@ -35,7 +46,18 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
             method: "POST",
             mode: "cors"
         })
-        alert("Post added to favourites");
+        setIsFavourite(true);
+        alert("Post has been added to favourites");
+    }
+    const removeFavouriteHandler: () => void = async () => {
+        await fetch(BackendURL + "Post/favourite?userName=" + profile?.Username + "&postId=" + props.PostData["id"] , {
+            method: "DELETE",
+            mode: "cors",
+            headers: {
+                "Authorization": "Bearer " + profile?.Token
+            }})
+            setIsFavourite(false);
+            alert("This post has been removed from your favourites list");
     }
     return(
     <Container>
@@ -73,7 +95,7 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
         </Col>
     </Row> : <></>}
     {
-        profile?.Type === RegistrationType.User ? <Container className="mt-3 d-flex justify-content-end"><Button onClick={favouriteHandler}>Add to favourites</Button></Container> : <></>
+        isFavourite !== undefined ? <Container className="mt-3 d-flex justify-content-end">{isFavourite ? <Button variant="danger" onClick={removeFavouriteHandler}>Remove from favourites</Button>: (<Button onClick={favouriteHandler}>Add to favourites</Button>)}</Container> : <></>
     }
     </Container>)
 }
