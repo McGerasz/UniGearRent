@@ -232,4 +232,26 @@ public class PostController : ControllerBase
         _logger.LogInformation("Operation successful");
         return Ok("Deleted");
     }
+
+    [HttpGet("isFavourite")]
+    public IActionResult IsFavourite([Required]string userName, [Required] int Id)
+    {
+        _logger.LogInformation("Beginning operation");
+        string id;
+        _logger.LogInformation("Retrieving user from database...");
+        try
+        {
+            id = _idService.GetId(userName); 
+        }
+        catch
+        {
+            _logger.LogError("User was not found in the database");
+            return NotFound("The user was not found in the database");
+        }
+        _logger.LogInformation("Retrieving user details...");
+        var details = _dbContext.UsersDetails.Include(det => det.FavouriteIDs).FirstOrDefault(det => det.Id == id);
+        if (details is null) return BadRequest("The username provided belongs to a lessor account type");
+        if (details.FavouriteIDs.Any(e => e.Id == Id)) return Ok(true);
+        return Ok(false);
+    }
 }
