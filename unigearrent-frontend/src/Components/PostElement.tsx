@@ -83,7 +83,7 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
          </ListGroupItem>}
          <ListGroupItem>
             <CardText className="mt-2 mb-2">
-                This post was created by: <span onClick={lessorPageHandler}>{props.PosterName}</span>
+                This post was created by: <span onClick={lessorPageHandler} style={{cursor:"pointer"}}>{props.PosterName}</span>
             </CardText>
         </ListGroupItem>
          </ListGroup>
