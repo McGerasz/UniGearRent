@@ -59,6 +59,9 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
             setIsFavourite(false);
             alert("This post has been removed from your favourites list");
     }
+    const lessorPageHandler: () => void = () => {
+        navigate("/lessor/" + props.PostData["posterId"]);
+    }
     return(
     <Container>
     <Card className="mt-3" style={{backgroundColor:"#B39377"}}>
@@ -80,7 +83,7 @@ const PostElement: React.FC<{PostData: any, PostDataType: PostType, MyPost: bool
          </ListGroupItem>}
          <ListGroupItem>
             <CardText className="mt-2 mb-2">
-                This post was created by: {props.PosterName}
+                This post was created by: <span onClick={lessorPageHandler}>{props.PosterName}</span>
             </CardText>
         </ListGroupItem>
          </ListGroup>
