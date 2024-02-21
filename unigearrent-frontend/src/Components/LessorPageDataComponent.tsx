@@ -7,6 +7,7 @@ import PostCardsComponent from "./PostCardsComponent";
 const LessorPageDataComponent: React.FC<{lessorData: any}> = (props) => {
     console.log(props.lessorData["posts"])
     return <Container className="w-100 mb-3 mt-4">
+        <Container className="w-75 mb-5">
         <Card style={{backgroundColor:"#B39377"}}>
             <CardHeader className="text-center">
                 <CardTitle><h1>{props.lessorData["name"]}</h1></CardTitle>
@@ -24,6 +25,10 @@ const LessorPageDataComponent: React.FC<{lessorData: any}> = (props) => {
             </ListGroup>
             </CardBody>
         </Card>
+        </Container>
+        <Container className="text-center">
+            <h3>{props.lessorData["name"]}'s posts</h3>
+        </Container>
         <Container className="justify-content-md-center w-75 mt-5">
         <PostCardsComponent searchData={props.lessorData["posts"].map((element: any) => new PostCardData(element.id, element.name, element.location, element.posterId, element.description)) as Array<PostCardData>} myPost={false}/>
         </Container> 
