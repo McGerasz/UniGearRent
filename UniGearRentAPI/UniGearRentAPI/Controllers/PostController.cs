@@ -2,6 +2,7 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UniGearRentAPI.Contracts;
 using UniGearRentAPI.DatabaseServices;
 using UniGearRentAPI.DatabaseServices.Repositories;
 using UniGearRentAPI.Models;
@@ -253,5 +254,22 @@ public class PostController : ControllerBase
         if (details is null) return BadRequest("The username provided belongs to a lessor account type");
         if (details.FavouriteIDs.Any(e => e.Id == Id)) return Ok(true);
         return Ok(false);
+    }
+
+    [HttpGet("lessorPageData/{id}")]
+    public IActionResult LessorPageData([FromRoute][Required]string id, string? userId)
+    {
+        LessorPageDataResponse data = new LessorPageDataResponse();
+        var details = _dbContext.LessorsDetails.FirstOrDefault(det => det.PosterId == id);
+        if (details is null) return NotFound("The provided id was not found in the database");
+        data.Name = details.Name;
+        if (userId is not null)
+        {
+            var identityUser = _dbContext.Users.FirstOrDefault(user => user.Id == details.PosterId);
+            if (identityUser is null) return NotFound("The userId was not found in the database");
+            data.PhoneNumber = identityUser.PhoneNumber;
+            data.Email = identityUser.Email;
+        }
+        return Ok(data);
     }
 }
