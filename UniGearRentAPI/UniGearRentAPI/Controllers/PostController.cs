@@ -259,17 +259,23 @@ public class PostController : ControllerBase
     [HttpGet("lessorPageData/{id}")]
     public IActionResult LessorPageData([FromRoute][Required]string id, string? userId)
     {
+        _logger.LogInformation("Beginning operation");
         LessorPageDataResponse data = new LessorPageDataResponse();
+        _logger.LogInformation("Retrieving lessor from database...");
         var details = _dbContext.LessorsDetails.FirstOrDefault(det => det.PosterId == id);
         if (details is null) return NotFound("The provided id was not found in the database");
+        _logger.LogInformation("Updating response data...");
         data.Name = details.Name;
         if (userId is not null)
         {
+            _logger.LogInformation("Retrieving user from database...");
             var identityUser = _dbContext.Users.FirstOrDefault(user => user.Id == details.PosterId);
             if (identityUser is null) return NotFound("The userId was not found in the database");
+            _logger.LogInformation("Updating response data...");
             data.PhoneNumber = identityUser.PhoneNumber;
             data.Email = identityUser.Email;
         }
+        _logger.LogInformation("Operation successful");
         return Ok(data);
     }
 }
