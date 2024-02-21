@@ -257,20 +257,30 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("lessorPageData/{id}")]
-    public IActionResult LessorPageData([FromRoute][Required]string id, string? userId)
+    public IActionResult LessorPageData([FromRoute][Required]string id, string? userName)
     {
         _logger.LogInformation("Beginning operation");
         LessorPageDataResponse data = new LessorPageDataResponse();
         _logger.LogInformation("Retrieving lessor from database...");
-        var details = _dbContext.LessorsDetails.FirstOrDefault(det => det.PosterId == id);
+        var details = _dbContext.LessorsDetails.Include(det => det.Posts).FirstOrDefault(det => det.PosterId == id);
         if (details is null) return NotFound("The provided id was not found in the database");
         _logger.LogInformation("Updating response data...");
         data.Name = details.Name;
-        if (userId is not null)
+        data.Posts = details.Posts;
+        if (userName is not null)
         {
+            _logger.LogInformation("Validating username...");
+            try
+            {
+                _idService.GetId(userName);
+            }
+            catch
+            {
+                return NotFound("The provided username was not found in the database");
+            }
+            _logger.LogInformation("Username successfully validated");
             _logger.LogInformation("Retrieving user from database...");
             var identityUser = _dbContext.Users.FirstOrDefault(user => user.Id == details.PosterId);
-            if (identityUser is null) return NotFound("The userId was not found in the database");
             _logger.LogInformation("Updating response data...");
             data.PhoneNumber = identityUser.PhoneNumber;
             data.Email = identityUser.Email;
