@@ -2,6 +2,12 @@
 
 Welcome to UniGearRent, a platform that facilitates the hassle-free renting of cars and trailers. Whether you're in need of a vehicle for a weekend getaway or looking to monetize your unused car or trailer, UniGearRent has you covered.
 
+## Installation
+
+1. Clone the repository
+2. Run the docker compose file with `docker-compose up --build`
+3. Access the frontend page at http://localhost:3000/<br>It is a possibility that the database will start slower then the backend. In that case please restart the backend in Docker after the database has already started running.
+
 ## Features
 
 - **Rentals Made Easy:** Browse through a diverse selection of cars and trailers available for rent. Find the perfect vehicle for your needs.
