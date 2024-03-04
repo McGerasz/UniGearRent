@@ -1,5 +1,6 @@
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniGearRentAPI.Contracts;
@@ -19,15 +20,18 @@ public class PostController : ControllerBase
     private readonly IIdService _idService;
     private readonly ILogger<PostController> _logger;
     private readonly UniGearRentAPIDbContext _dbContext;
+    private readonly UserManager<IdentityUser> _userManager;
 
     public PostController(IRepository<CarPost> carRepository, IRepository<TrailerPost> trailerRepository,
-        IIdService idService, ILogger<PostController> logger, UniGearRentAPIDbContext dbContext)
+        IIdService idService, ILogger<PostController> logger, UniGearRentAPIDbContext dbContext,
+        UserManager<IdentityUser> userManager)
     {
         _carRepository = carRepository;
         _trailerRepository = trailerRepository;
         _idService = idService;
         _logger = logger;
         _dbContext = dbContext;
+        _userManager = userManager;
     }
 
     [HttpGet("byName/{name}")]
@@ -287,5 +291,84 @@ public class PostController : ControllerBase
         }
         _logger.LogInformation("Operation successful");
         return Ok(data);
+    }
+
+    [HttpGet("profileDetails/{id}")]
+    public IActionResult GetProfileDetails([FromRoute] string id)
+    {
+        var details1 = _dbContext.UsersDetails.FirstOrDefault(det => det.Id == id);
+        var details2 = _dbContext.LessorsDetails.FirstOrDefault(det => det.PosterId == id);
+        if (details1 is null && details2 is null) return NotFound();
+        if (details1 is not null) return Ok(details1);
+        return Ok(details2);
+    }
+
+    [HttpPut("lessor")]
+    public async Task<IActionResult> PutLessorProfile([FromBody] [Required] LessorPutRequest request)
+    {
+        var user = _dbContext.Users.FirstOrDefault(user => user.Id == request.Id);
+        if (user is null) return NotFound();
+        if (_dbContext.Users.FirstOrDefault(user => user.UserName == request.Username && user.Id != request.Id) is not null)
+            return BadRequest("Username is already taken");
+        if (_dbContext.Users.FirstOrDefault(user => user.Email == request.Email && user.Id != request.Id) is not null)
+            return BadRequest("Email address is already taken");
+        user.UserName = request.Username;
+        user.Email = request.Email;
+        user.PhoneNumber = request.Phonenumber;
+        await _userManager.UpdateAsync(user);
+
+        var details = _dbContext.LessorsDetails.FirstOrDefault(det => det.PosterId == request.Id);
+        if (details is null) return BadRequest();
+        details.Name = request.Name;
+        _dbContext.Update(details);
+        await _dbContext.SaveChangesAsync();
+        return Ok();
+    }
+    [HttpPut("user")]
+    public async Task<IActionResult> PutUserProfile([FromBody] [Required] UserPutRequest request)
+    {
+        var user = _dbContext.Users.FirstOrDefault(user => user.Id == request.Id);
+        if (user is null) return NotFound();
+        if (_dbContext.Users.FirstOrDefault(user => user.UserName == request.Username && user.Id != request.Id) is not null)
+            return BadRequest("Username is already taken");
+        if (_dbContext.Users.FirstOrDefault(user => user.Email == request.Email && user.Id != request.Id) is not null)
+            return BadRequest("Email address is already taken");
+        user.UserName = request.Username;
+        user.Email = request.Email;
+        user.PhoneNumber = request.Phonenumber;
+        await _userManager.UpdateAsync(user);
+
+        var details = _dbContext.UsersDetails.FirstOrDefault(det => det.Id == request.Id);
+        if (details is null) return BadRequest();
+        details.FirstName = request.FirstName;
+        details.LastName = request.LastName;
+        _dbContext.Update(details);
+        _dbContext.SaveChanges();
+        return Ok();
+    }
+    [HttpDelete("profile/{id}")]
+    public IActionResult DeleteProfile([FromRoute] string id)
+    {
+        try
+        {
+            _dbContext.Remove(_dbContext.Users.First(user => user.Id == id));
+            _dbContext.SaveChanges();
+
+        }
+        catch
+        {
+            return BadRequest();
+        }
+        var details = _dbContext.UsersDetails.FirstOrDefault(det => det.Id == id);
+        if (details is not null)
+        {
+            _dbContext.Remove(details);
+            _dbContext.SaveChanges();
+            return Ok();
+        }
+
+        _dbContext.Remove(_dbContext.LessorsDetails.First(det => det.PosterId == id));
+        _dbContext.SaveChanges();
+        return Ok();
     }
 }
