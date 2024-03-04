@@ -27,6 +27,7 @@ const LoginComponent: React.FC = () =>{
             password: target.password.value
         };
         type LoginResponse = {
+            id: string,
             email: string,
             userName: string,
             phoneNumber: string,
@@ -66,7 +67,7 @@ const LoginComponent: React.FC = () =>{
             jti: string, 
             sub: string 
         }
-        let profile = new Profile(response.userName, response.phoneNumber, response.email, response.token, RegistrationType[(jwtDecode(response.token) as jwtDecodeType)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as keyof typeof RegistrationType]);
+        let profile = new Profile(response.id, response.userName, response.phoneNumber, response.email, response.token, RegistrationType[(jwtDecode(response.token) as jwtDecodeType)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as keyof typeof RegistrationType]);
         userProfile.setUserProfile(profile);
         cookies.set('profile', profile, {expires: new Date(Date.now() + 30*60000)});
         navigate("/");
