@@ -17,6 +17,7 @@ import EditPostPage from './Pages/EditPostPage';
 import PostPage from './Pages/PostPage';
 import MyFavouritesPage from './Pages/MyFavouritesPage';
 import LessorPage from './Pages/LessorPage';
+import MyAccountPage from './Pages/MyAccountPage';
 
 function App() {
   let cookies = new Cookies();
@@ -66,6 +67,9 @@ function App() {
         },{
           path: "/lessor/:id",
           element: <LessorPage />
+        },{
+          path: "/myaccount",
+          element: <MyAccountPage />
         }
       ]
     }
