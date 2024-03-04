@@ -40,15 +40,15 @@ const Navbar: React.FC = () => {
             <Nav className="justify-content-evenly w-25">
                 {profile ? (<>
                     <NavItem>
-                    <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" to="/">
-                        Profile
+                    <Link className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" to="/myaccount">
+                        My Account
                     </Link></NavItem>
                         {profile.Type === RegistrationType.Lessor.valueOf() ? (<NavItem>
                             <Link to="/myposts" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
-                            My posts
+                            My Posts
                         </Link></NavItem>) : 
                         (<NavItem><Link to="/myfavourites" className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover" style={{width:"100%", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
-                            My favourites
+                            My Favourites
                         </Link></NavItem>)}
                         <NavItem  className="link-dark link-offset-2" style={{cursor:"pointer"}} onClick={LogoutHandler}>Logout</NavItem>
                         </>) : 
