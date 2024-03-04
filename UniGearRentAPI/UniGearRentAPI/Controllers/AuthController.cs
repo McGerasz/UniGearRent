@@ -94,7 +94,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
         _logger.LogInformation("Operation successful");
-        return Ok(new AuthResponse(result.Email, result.UserName, result.PhoneNumber,result.Token));
+        return Ok(new AuthResponse(result.Email, result.UserName, result.PhoneNumber,result.Token, _dbContext.Users.First(user => user.UserName == result.UserName).Id));
     }
     
     private void AddErrors(AuthResult result)
