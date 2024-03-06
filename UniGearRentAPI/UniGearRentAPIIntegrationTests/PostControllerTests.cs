@@ -1,6 +1,9 @@
+using System.Net;
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using UniGearRentAPI.Contracts;
 using UniGearRentAPI.Models;
 
 namespace UniGearRentAPIIntegrationTests;
@@ -51,6 +54,22 @@ public class PostControllerTests
             LockoutEnabled = false,
             UserName = "TestUser4"
         });
+        _factory._testUniGearRentAPIDbContext.Users.Add(new IdentityUser
+        {
+            AccessFailedCount = 0,
+            EmailConfirmed = true,
+            Id = "PUTLESSORTESTID",
+            LockoutEnabled = false,
+            UserName = "PUTLESSORTEST"
+        });
+        _factory._testUniGearRentAPIDbContext.Users.Add(new IdentityUser
+        {
+            AccessFailedCount = 0,
+            EmailConfirmed = true,
+            Id = "PUTUSERTESTID",
+            LockoutEnabled = false,
+            UserName = "PUTUSERTEST"
+        });
         _factory._testUniGearRentAPIDbContext.LessorsDetails.Add(new LessorDetails
         {
             Name = "TESTNAME1",
@@ -60,6 +79,11 @@ public class PostControllerTests
         {
             Name = "TESTNAME2",
             PosterId = "TESTID2"
+        });
+        _factory._testUniGearRentAPIDbContext.LessorsDetails.Add(new LessorDetails
+        {
+            Name = "LESSORPUTTEST",
+            PosterId = "PUTLESSORTESTID"
         });
         _factory._carRepository.Create(new CarPost
         {
@@ -102,6 +126,13 @@ public class PostControllerTests
         {
             FirstName = "TEST4",
             Id = "TESTID4",
+            LastName = "TESTLASTNAME",
+            FavouriteIDs = { (Post) _factory._carRepository.GetById(9) }
+        });
+        _factory._testUniGearRentAPIDbContext.UsersDetails.Add(new UserDetails
+        {
+            FirstName = "TEST5",
+            Id = "PUTUSERTESTID",
             LastName = "TESTLASTNAME",
             FavouriteIDs = { (Post) _factory._carRepository.GetById(9) }
         });
