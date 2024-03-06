@@ -235,4 +235,21 @@ public class PostControllerTests
         var processedResponse = JsonConvert.DeserializeObject<LessorDetails>(responseString);
         Assert.That(processedResponse.Name, Is.EqualTo("UPDATESUCCEDED"));
     }
+    [Test]
+    public async Task PutUserUpdatesUser()
+    {
+        await _client.PutAsync("api/Post/user", new StringContent(System.Text.Json.JsonSerializer.Serialize(new UserPutRequest
+        {
+            Email = "puttest2@test.com",
+            Id = "PUTUSERTESTID",
+            Phonenumber = "06209999999",
+            Username = "PUTUSERTEST",
+            FirstName = "TEST5",
+            LastName = "LASTNAMEUPDATED"
+        }), Encoding.UTF8, "application/json"));
+        var response = await _client.GetAsync($"api/Post/profileDetails/{"PUTUSERTESTID"}");
+        string responseString = await response.Content.ReadAsStringAsync();
+        var processedResponse = JsonConvert.DeserializeObject<UserDetails>(responseString);
+        Assert.That(processedResponse.LastName, Is.EqualTo("LASTNAMEUPDATED"));
+    }
 }
