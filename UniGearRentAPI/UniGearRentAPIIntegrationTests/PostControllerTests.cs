@@ -203,4 +203,12 @@ public class PostControllerTests
             Assert.That(processedPosts.Count, Is.EqualTo(0));
         }
     }
+    [Test]
+    public async Task ProfileDetailsReturnsLessorDetails()
+    {
+        var response = await _client.GetAsync($"api/Post/profileDetails/{"TESTID1"}");
+        string responseString = await response.Content.ReadAsStringAsync();
+        var processedResponse = JsonConvert.DeserializeObject<LessorDetails>(responseString);
+        Assert.That(processedResponse, Is.TypeOf<LessorDetails>());
+    }
 }
