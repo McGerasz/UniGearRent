@@ -26,7 +26,7 @@ const MyPostsPage: React.FC = () => {
     return(
     <Container className="justify-content-md-center w-75 mt-5">
         <Container className="w-100 d-flex justify-content-center mb-5">
-            <Button className="btn-dark w-75" onClick={ClickHandler}>Create post</Button>
+            <Button className="btn-dark w-50" onClick={ClickHandler}>Create post</Button>
         </Container>
         {searchData.length > 0 ? <PostCardsComponent searchData={searchData} myPost={true}/> : <></>}
     </Container>)
