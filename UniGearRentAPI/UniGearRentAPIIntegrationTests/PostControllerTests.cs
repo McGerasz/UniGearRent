@@ -70,6 +70,14 @@ public class PostControllerTests
             LockoutEnabled = false,
             UserName = "PUTUSERTEST"
         });
+        _factory._testUniGearRentAPIDbContext.Users.Add(new IdentityUser
+        {
+            AccessFailedCount = 0,
+            EmailConfirmed = true,
+            Id = "TOBEDELETEDID",
+            LockoutEnabled = false,
+            UserName = "TOBEDELETED"
+        });
         _factory._testUniGearRentAPIDbContext.LessorsDetails.Add(new LessorDetails
         {
             Name = "TESTNAME1",
@@ -84,6 +92,11 @@ public class PostControllerTests
         {
             Name = "LESSORPUTTEST",
             PosterId = "PUTLESSORTESTID"
+        });
+        _factory._testUniGearRentAPIDbContext.LessorsDetails.Add(new LessorDetails
+        {
+            Name = "TOBEDELETED",
+            PosterId = "TOBEDELETEDID"
         });
         _factory._carRepository.Create(new CarPost
         {
@@ -251,5 +264,13 @@ public class PostControllerTests
         string responseString = await response.Content.ReadAsStringAsync();
         var processedResponse = JsonConvert.DeserializeObject<UserDetails>(responseString);
         Assert.That(processedResponse.LastName, Is.EqualTo("LASTNAMEUPDATED"));
+    }
+
+    [Test]
+    public async Task DeleteProfileDeletesUser()
+    {
+        await _client.DeleteAsync($"api/Post/profile/{"TOBEDELETEDID"}");
+        var response = await _client.GetAsync($"api/Post/profileDetails/{"TOBEDELETEDID"}");
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
     }
 }
